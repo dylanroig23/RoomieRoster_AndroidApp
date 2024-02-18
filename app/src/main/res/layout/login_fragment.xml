@@ -7,7 +7,7 @@
     tools:context="com.UI.Activities.LoginActivity"
     android:orientation="vertical"
     android:padding = "15sp"
-    android:background="@drawable/Login_background"
+    android:background="@drawable/login_background"
     android:gravity="center_vertical">
 
     <RelativeLayout
@@ -19,7 +19,8 @@
         <ImageView
             android:layout_width="120sp"
             android:layout_height="120sp"
-            android:src="@drawable/RR_Icon" />
+            android:src="@drawable/rr_icon"
+            android:contentDescription="@string/RR_icon_description"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -106,6 +107,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/Login_CreateAccount"
                 android:clickable="true"
+                android:textSize = "20sp"
+                android:paddingBottom="30sp"
                 android:textStyle="bold"
                 android:textColor="@color/black" />
 

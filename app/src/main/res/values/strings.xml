@@ -6,4 +6,5 @@
     <string name="Login_Continue">Continue</string>
     <string name="Login_NewUser">New User? </string>
     <string name="Login_CreateAccount">Create Account </string>
+    <string name="RR_icon_description">RR Icon</string>
 </resources>
