@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">RoomieRoster</string>
+    <string name="Login_welcome">Sign in!</string>
+    <string name="Login_phone">Phone</string>
+    <string name="Login_password">Password</string>
+    <string name="Login_Continue">Continue</string>
+    <string name="Login_NewUser">New User? </string>
+    <string name="Login_CreateAccount">Create Account </string>
+</resources>
