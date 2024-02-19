@@ -7,8 +7,10 @@ import androidx.fragment.app.FragmentManager;
 import RoomieRoster.UI.Fragments.LoginFragment;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.RoomieRoster.R;
+
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -25,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_fragment);
+        Log.d("LoginActivity", "GOT HERERE");
 
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
