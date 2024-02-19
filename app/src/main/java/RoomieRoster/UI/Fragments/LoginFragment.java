@@ -2,6 +2,7 @@ package RoomieRoster.UI.Fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Surface;
@@ -10,21 +11,27 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.RoomieRoster.R;
+import com.google.android.material.textfield.TextInputEditText;
+
+import RoomieRoster.UI.Activities.LoginActivity;
 
 
 public class LoginFragment extends Fragment {
 
     private static final String TAG = "LoginFragment";
 
-    private EditText mUsernameEditText;
+    TextInputEditText mEditTextEmail;
+    TextInputEditText mEditTextPassword;
+    Button mContinueButton;
 
-    private EditText mPasswordEditText;
+
 
 
     @Override
@@ -46,12 +53,31 @@ public class LoginFragment extends Fragment {
 
         v = inflater.inflate(R.layout.fragment_login, container, false);
 
-        mUsernameEditText = v.findViewById(R.id.email);
-        mPasswordEditText = v.findViewById(R.id.password);
+        mEditTextEmail = v.findViewById(R.id.email);
+        mEditTextPassword = v.findViewById(R.id.password);
+        mContinueButton = v.findViewById(R.id.btn_login);
 
-        final Button loginButton = v.findViewById(R.id.btn_login);
-        if (loginButton != null) {
-            //loginButton.setOnClickListener(this);
+        if (mContinueButton != null) {
+            mContinueButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String email;
+                    String password;
+                    email = String.valueOf(mEditTextEmail.getText());
+                    password = String.valueOf(mEditTextPassword.getText());
+
+                    if (TextUtils.isEmpty(email)) {
+                        Toast.makeText(view.getContext(),"Enter Email",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (TextUtils.isEmpty(password)) {
+                        Toast.makeText(view.getContext(),"Enter Password",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    // add Firebase login information here
+                }
+            });
         }
 
         final TextView newUserButton = v.findViewById(R.id.btn_create_account);
