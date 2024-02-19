@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.roomieroster"
+    namespace = "com.RoomieRoster"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.roomieroster"
+        applicationId = "com.RoomieRoster"
         minSdk = 28
         targetSdk = 34
         versionCode = 1

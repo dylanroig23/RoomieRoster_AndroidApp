@@ -1,14 +1,14 @@
-package com.UI.Activities;
+package RoomieRoster.UI.Activities;
 
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import com.UI.Fragments.LoginFragment;
+import RoomieRoster.UI.Fragments.LoginFragment;
 
 import android.os.Bundle;
 
-import com.example.roomieroster.R;
+import com.RoomieRoster.R;
 
 public class LoginActivity extends AppCompatActivity {
 

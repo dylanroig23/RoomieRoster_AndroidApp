@@ -1,10 +1,10 @@
-package com.UI.Activities;
+package RoomieRoster.UI.Activities;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.roomieroster.R;
+import com.RoomieRoster.R;
 
 public class RegisterActivity extends AppCompatActivity {
 

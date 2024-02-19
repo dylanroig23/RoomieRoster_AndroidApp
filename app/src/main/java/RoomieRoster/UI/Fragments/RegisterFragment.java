@@ -1,4 +1,4 @@
-package com.UI.Fragments;
+package RoomieRoster.UI.Fragments;
 
 public class RegisterFragment {
 }

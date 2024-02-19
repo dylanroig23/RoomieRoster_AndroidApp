@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.UI.Activities.LoginActivity"
+    tools:context="com.RoomieRoster.UI.Activities.LoginActivity"
     android:orientation="vertical"
     android:padding = "15sp"
     android:background="@drawable/login_background"
@@ -58,8 +58,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/phone"
-            android:hint="@string/Login_phone"
+            android:id="@+id/email"
+            android:hint="@string/Login_email"
             android:background="@drawable/rounded_edittext_bg">
         </com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
@@ -106,6 +106,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/Login_CreateAccount"
                 android:clickable="true"
+                android:id="@+id/btn_create_account"
                 android:textSize = "20sp"
                 android:paddingBottom="30sp"
                 android:textStyle="bold"

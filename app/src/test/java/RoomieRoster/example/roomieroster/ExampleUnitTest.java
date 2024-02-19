@@ -1,4 +1,4 @@
-package com.example.roomieroster;
+package RoomieRoster.example.roomieroster;
 
 import org.junit.Test;
 

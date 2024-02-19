@@ -1,4 +1,4 @@
-package com.UI.Fragments;
+package RoomieRoster.UI.Fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import com.RoomieRoster.R;
 import androidx.fragment.app.FragmentManager;
 
 
@@ -41,20 +42,16 @@ public class LoginFragment extends Fragment {
 
         int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
 
-        v = inflater.inflate(R.layout.fragment_login, container, false);
-        mUsernameEditText = v.findViewById(R.id.username_text);
-        mPasswordEditText = v.findViewById(R.id.password_text);
+        v = inflater.inflate(R.layout.login_fragment, container, false);
+        mUsernameEditText = v.findViewById(R.id.email);
+        mPasswordEditText = v.findViewById(R.id.password);
 
-        final Button loginButton = v.findViewById(R.id.login_button);
+        final Button loginButton = v.findViewById(R.id.btn_login);
         if (loginButton != null) {
             //loginButton.setOnClickListener(this);
         }
-        final Button cancelButton = v.findViewById(R.id.cancel_button);
-        if (cancelButton != null) {
-            //cancelButton.setOnClickListener();
-        }
 
-        final Button newUserButton = v.findViewById(R.id.new_user_button);
+        final Button newUserButton = v.findViewById(R.id.btn_create_account);
         if (newUserButton != null) {
             if (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_180) {
                 //newUserButton.setOnClickListener(this);

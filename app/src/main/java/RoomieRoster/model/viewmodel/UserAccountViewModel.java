@@ -1,4 +1,4 @@
-package com.model.viewmodel;
+package RoomieRoster.model.viewmodel;
 
 public class UserAccountViewModel {
 }
