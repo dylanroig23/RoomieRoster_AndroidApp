@@ -20,13 +20,13 @@ public class LoginActivity extends AppCompatActivity {
 
     @LayoutRes
     protected int getLayoutResId() {
-        return R.layout.activity_fragment;
+        return R.layout.fragment_container;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_fragment);
+        setContentView(R.layout.fragment_container);
         Log.d("LoginActivity", "GOT HERERE");
 
         FragmentManager fm = getSupportFragmentManager();

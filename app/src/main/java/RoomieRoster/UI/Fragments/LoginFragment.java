@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
@@ -30,18 +31,21 @@ public class LoginFragment extends Fragment {
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         Log.d(TAG, "onCreate()");
+        Log.d(TAG, "WE IN THIS THING");
 
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d(TAG, "GOT HERERE LETS GOOO");
         View v;
         Log.d(TAG, "onCreateView()");
         Activity activity = requireActivity();
 
         int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
 
-        v = inflater.inflate(R.layout.login_fragment, container, false);
+        v = inflater.inflate(R.layout.fragment_login, container, false);
+
         mUsernameEditText = v.findViewById(R.id.email);
         mPasswordEditText = v.findViewById(R.id.password);
 
@@ -50,7 +54,7 @@ public class LoginFragment extends Fragment {
             //loginButton.setOnClickListener(this);
         }
 
-        final Button newUserButton = v.findViewById(R.id.btn_create_account);
+        final TextView newUserButton = v.findViewById(R.id.btn_create_account);
         if (newUserButton != null) {
             if (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_180) {
                 //newUserButton.setOnClickListener(this);
@@ -59,7 +63,6 @@ public class LoginFragment extends Fragment {
                 newUserButton.invalidate();
             }
         }
-
         return v;
     }
 
