@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="RoomieRoster.UI.Activities.LoginActivity"
+    tools:context="RoomieRoster.UI.Activities.RegisterActivity"
     android:orientation="vertical"
     android:padding = "15sp"
     android:background="@drawable/login_background"
@@ -39,7 +39,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Login_welcome"
+        android:text="@string/Register_CreateAccount"
         android:textColor="@color/white"
         android:textSize="40sp"
         android:textStyle="bold"
@@ -58,8 +58,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/email"
-            android:hint="@string/Login_email"
+            android:id="@+id/register_name"
+            android:hint="@string/Register_Name"
             android:background="@drawable/rounded_edittext_bg">
         </com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
@@ -72,8 +72,36 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/password"
-            android:hint="@string/Login_password"
+            android:id="@+id/register_email"
+            android:hint="@string/Register_Email"
+            android:background="@drawable/rounded_edittext_bg">
+        </com.google.android.material.textfield.TextInputEditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15sp"
+        android:layout_marginEnd="15sp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/register_phone"
+            android:hint="@string/Register_Phone"
+            android:background="@drawable/rounded_edittext_bg">
+        </com.google.android.material.textfield.TextInputEditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15sp"
+        android:layout_marginEnd="15sp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/register_password"
+            android:hint="@string/Register_Password"
             android:background="@drawable/rounded_edittext_bg">
         </com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
@@ -85,34 +113,10 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btn_login"
-            android:text = "@string/Login_Continue"
+            android:id="@+id/btn_register"
+            android:text = "@string/Register_CreateAccount"
             android:textSize = "11sp"
-            android:layout_marginStart="260sp"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginStart="15sp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/Login_NewUser"
-                android:textStyle="italic"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/Login_CreateAccount"
-                android:clickable="true"
-                android:id="@+id/text_create_account"
-                android:textSize = "20sp"
-                android:paddingBottom="30sp"
-                android:textStyle="bold"
-                android:textColor="@color/black" />
-
-        </LinearLayout>
+            android:layout_marginStart="240sp"/>
     </RelativeLayout>
 
 
