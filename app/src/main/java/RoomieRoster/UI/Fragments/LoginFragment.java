@@ -30,16 +30,14 @@ public class LoginFragment extends Fragment {
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        Log.d(TAG, "onCreate()");
-        Log.d(TAG, "WE IN THIS THING");
+        Log.d(TAG, "onCreate() called");
 
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d(TAG, "GOT HERERE LETS GOOO");
         View v;
-        Log.d(TAG, "onCreateView()");
+        Log.d(TAG, "onCreateView() called");
         Activity activity = requireActivity();
 
         int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
@@ -64,6 +62,36 @@ public class LoginFragment extends Fragment {
             }
         }
         return v;
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.d(TAG, "onStart() called");
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        Log.d(TAG, "onResume() called");
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        Log.d(TAG, "onPause() called");
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d(TAG, "onStop() called");
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Log.d(TAG, "onDestroy() called");
     }
 
 }
