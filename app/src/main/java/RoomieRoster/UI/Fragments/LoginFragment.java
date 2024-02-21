@@ -1,6 +1,7 @@
 package RoomieRoster.UI.Fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,6 +22,7 @@ import com.RoomieRoster.R;
 import com.google.android.material.textfield.TextInputEditText;
 
 import RoomieRoster.UI.Activities.LoginActivity;
+import RoomieRoster.UI.Activities.RegisterActivity;
 
 
 public class LoginFragment extends Fragment {
@@ -74,6 +76,14 @@ public class LoginFragment extends Fragment {
                         Toast.makeText(view.getContext(),"Enter Password",Toast.LENGTH_SHORT).show();
                         return;
                     }
+
+                    Intent intent = new Intent(getActivity(), RegisterActivity.class);
+
+                    // Start the SecondActivity
+                    startActivity(intent);
+
+                    // Finish the LoginActivity
+                    getActivity().finish();
 
                     // add Firebase login information here
                 }
