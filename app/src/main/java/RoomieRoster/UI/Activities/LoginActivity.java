@@ -1,5 +1,6 @@
 package RoomieRoster.UI.Activities;
 
+import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -30,4 +31,35 @@ public class LoginActivity extends AppCompatActivity {
                     .commit();
         }
     }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.d("LoginActivity", "onStart() called");
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        Log.d("LoginActivity", "onResume() called");
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        Log.d("LoginActivity", "onPause() called");
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d("LoginActivity", "onStop() called");
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Log.d("LoginActivity", "onDestroy() called");
+    }
 }
+
