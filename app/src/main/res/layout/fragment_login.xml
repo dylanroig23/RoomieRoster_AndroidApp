@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/Login_CreateAccount"
                 android:clickable="true"
-                android:id="@+id/btn_create_account"
+                android:id="@+id/text_create_account"
                 android:textSize = "20sp"
                 android:paddingBottom="30sp"
                 android:textStyle="bold"
