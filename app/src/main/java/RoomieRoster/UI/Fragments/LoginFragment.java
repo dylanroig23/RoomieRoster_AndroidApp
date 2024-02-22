@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import com.RoomieRoster.R;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import RoomieRoster.UI.Activities.HomeActivity;
 import RoomieRoster.UI.Activities.RegisterActivity;
@@ -27,10 +28,10 @@ public class LoginFragment extends Fragment {
 
     TextInputEditText mEditTextEmail;
     TextInputEditText mEditTextPassword;
+    TextInputLayout mTextInputLayoutEmail;
+    TextInputLayout mTextInputLayoutPassword;
     Button mContinueButton;
     TextView mCreateAccountText;
-
-
 
 
     @Override
@@ -49,6 +50,13 @@ public class LoginFragment extends Fragment {
         mEditTextEmail = v.findViewById(R.id.email);
         mEditTextPassword = v.findViewById(R.id.password);
         mContinueButton = v.findViewById(R.id.btn_login);
+
+        mTextInputLayoutEmail = v.findViewById(R.id.email_hint);
+        mTextInputLayoutEmail.setHintEnabled(false);
+
+        mTextInputLayoutPassword = v.findViewById(R.id.password_hint);
+        mTextInputLayoutPassword.setHintEnabled(false);
+
 
         if (mContinueButton != null) {
             mContinueButton.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +110,36 @@ public class LoginFragment extends Fragment {
             });
         }
         return v;
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.d(TAG, "onStart() called");
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        Log.d(TAG, "onResume() called");
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        Log.d(TAG, "onPause() called");
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d(TAG, "onStop() called");
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Log.d(TAG, "onDestroy() called");
     }
 
 }

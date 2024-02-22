@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import com.RoomieRoster.R;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import RoomieRoster.UI.Activities.LoginActivity;
 import RoomieRoster.UI.Activities.RegisterActivity;
@@ -28,6 +29,10 @@ public class RegisterFragment extends Fragment {
     TextInputEditText mEditTextEmail;
     TextInputEditText mEditTextPhone;
     TextInputEditText mEditTextPassword;
+    TextInputLayout mTextInputLayoutName;
+    TextInputLayout mTextInputLayoutEmail;
+    TextInputLayout mTextInputLayoutPhone;
+    TextInputLayout mTextInputLayoutPassword;
     Button mCreateAccountButton;
 
     @Override
@@ -48,6 +53,18 @@ public class RegisterFragment extends Fragment {
         mEditTextPhone = v.findViewById(R.id.register_phone);
         mEditTextPassword = v.findViewById(R.id.register_password);
         mCreateAccountButton = v.findViewById(R.id.btn_register);
+
+        mTextInputLayoutName = v.findViewById(R.id.name_hint);
+        mTextInputLayoutName.setHintEnabled(false);
+
+        mTextInputLayoutEmail = v.findViewById(R.id.email_reg_hint);
+        mTextInputLayoutEmail.setHintEnabled(false);
+
+        mTextInputLayoutPhone = v.findViewById(R.id.phone_reg_hint);
+        mTextInputLayoutPhone.setHintEnabled(false);
+
+        mTextInputLayoutPassword = v.findViewById(R.id.password_reg_hint);
+        mTextInputLayoutPassword.setHintEnabled(false);
 
         if (mCreateAccountButton != null) {
             mCreateAccountButton.setOnClickListener(new View.OnClickListener() {
