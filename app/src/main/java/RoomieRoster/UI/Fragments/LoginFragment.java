@@ -1,16 +1,13 @@
 package RoomieRoster.UI.Fragments;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +16,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.RoomieRoster.R;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
+import RoomieRoster.UI.Activities.HomeActivity;
+import RoomieRoster.UI.Activities.RegisterActivity;
 
 public class LoginFragment extends Fragment {
 
@@ -27,10 +28,10 @@ public class LoginFragment extends Fragment {
 
     TextInputEditText mEditTextEmail;
     TextInputEditText mEditTextPassword;
+    TextInputLayout mTextInputLayoutEmail;
+    TextInputLayout mTextInputLayoutPassword;
     Button mContinueButton;
     TextView mCreateAccountText;
-
-    private EditText mPasswordEditText;
 
 
     @Override
@@ -49,6 +50,13 @@ public class LoginFragment extends Fragment {
         mEditTextEmail = v.findViewById(R.id.email);
         mEditTextPassword = v.findViewById(R.id.password);
         mContinueButton = v.findViewById(R.id.btn_login);
+
+        mTextInputLayoutEmail = v.findViewById(R.id.email_hint);
+        mTextInputLayoutEmail.setHintEnabled(false);
+
+        mTextInputLayoutPassword = v.findViewById(R.id.password_hint);
+        mTextInputLayoutPassword.setHintEnabled(false);
+
 
         if (mContinueButton != null) {
             mContinueButton.setOnClickListener(new View.OnClickListener() {
