@@ -31,6 +31,10 @@
             android:name="RoomieRoster.UI.Activities.HomeActivity"
             android:exported="true">
         </activity>
+        <activity
+            android:name="RoomieRoster.UI.Activities.HouseOptionActivity"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

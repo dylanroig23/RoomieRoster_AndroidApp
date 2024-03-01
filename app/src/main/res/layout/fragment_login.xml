@@ -53,7 +53,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:paddingBottom="5dp"
         android:id="@+id/email_hint">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -61,7 +60,10 @@
             android:layout_height="wrap_content"
             android:hint="@string/Login_email"
             android:id="@+id/email"
-            android:background="@drawable/rounded_edittext_bg">
+            android:background="@drawable/rounded_edittext_bg"
+            android:paddingTop="10dp"
+            android:paddingStart="10dp"
+            android:paddingBottom="10dp">
         </com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -70,13 +72,17 @@
         android:layout_height="wrap_content"
         android:id="@+id/password_hint"
         android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp">
+        android:layout_marginEnd="15dp"
+        >
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:hint="@string/Login_password"
             android:id="@+id/password"
-            android:background="@drawable/rounded_edittext_bg">
+            android:background="@drawable/rounded_edittext_bg"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingStart="10dp">
         </com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -89,6 +95,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/btn_login"
             android:text = "@string/Login_Continue"
+            android:background="@drawable/continue_button"
             android:textSize = "11sp"
             android:layout_marginStart="260dp"/>
 
@@ -109,7 +116,7 @@
                 android:text="@string/Login_CreateAccount"
                 android:clickable="true"
                 android:id="@+id/text_create_account"
-                android:textSize = "20sp"
+                android:textSize="20sp"
                 android:paddingBottom="30dp"
                 android:textStyle="bold"
                 android:textColor="@color/black" />

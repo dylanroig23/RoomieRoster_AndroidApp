@@ -19,6 +19,7 @@ import com.RoomieRoster.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import RoomieRoster.UI.Activities.HouseOptionActivity;
 import RoomieRoster.UI.Activities.LoginActivity;
 import RoomieRoster.UI.Activities.RegisterActivity;
 
@@ -105,7 +106,7 @@ public class RegisterFragment extends Fragment {
 
                     //ADD FIREBASE CREATE ACCOUNT HERE
 
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    Intent intent = new Intent(getActivity(), HouseOptionActivity.class);
 
                     // Start the SecondActivity
                     startActivity(intent);

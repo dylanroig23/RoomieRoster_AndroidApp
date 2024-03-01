@@ -13,4 +13,6 @@
     <string name="Register_Phone">Phone</string>
     <string name="Register_Password">Password</string>
     <string name="Home_InProgress">Home Page in Progress!</string>
+    <string name="New_House">New House</string>
+    <string name="Join_House">Join House</string>
 </resources>
