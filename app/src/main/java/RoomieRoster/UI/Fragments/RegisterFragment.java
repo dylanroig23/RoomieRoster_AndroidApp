@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelStoreOwner;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.RoomieRoster.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,6 +27,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import RoomieRoster.UI.Activities.LoginActivity;
 import RoomieRoster.UI.Activities.RegisterActivity;
+import RoomieRoster.model.User;
+import RoomieRoster.model.viewmodel.UserViewModel;
 
 public class RegisterFragment extends Fragment {
     private static final String TAG = "RegisterFragment";
@@ -40,10 +44,14 @@ public class RegisterFragment extends Fragment {
     Button mCreateAccountButton;
     private FirebaseAuth mAuth;
 
+    private UserViewModel mUserViewModel;
+
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         mAuth = FirebaseAuth.getInstance();
+        Activity activity = requireActivity();
+        mUserViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(UserViewModel.class);
         Log.d(TAG, "RegisterFragment: onCreate()");
     }
 
@@ -108,16 +116,19 @@ public class RegisterFragment extends Fragment {
                         Toast.makeText(view.getContext(),"Enter Password",Toast.LENGTH_SHORT).show();
                         return;
                     }
-
+                    User user = new User(name, email, phone, "1234");
                     //Create a User within Firebase using FirebaseAuth, go to LoginActivity on Success
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
+
                                         Log.i(TAG, "RegisterFragment: Create User Account Success");
                                         Toast.makeText(view.getContext(), "Create User Account Success.",
                                                 Toast.LENGTH_SHORT).show();
+
+                                        mUserViewModel.insert(user);
                                         Intent intent = new Intent(getActivity(), LoginActivity.class);
 
                                         // Start the LoginActivity

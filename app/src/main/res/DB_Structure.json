@@ -23,7 +23,7 @@
       "city": "Columbus",
       "state" : "OH",
       "zipcode" : "43201",
-      "members": {
+      "users": {
         "user1" : true
       },
       "events" : {

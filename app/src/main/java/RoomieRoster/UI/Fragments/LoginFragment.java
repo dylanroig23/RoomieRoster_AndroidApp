@@ -1,5 +1,6 @@
 package RoomieRoster.UI.Fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.RoomieRoster.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import RoomieRoster.UI.Activities.HomeActivity;
 import RoomieRoster.UI.Activities.RegisterActivity;
+import RoomieRoster.model.viewmodel.UserViewModel;
 
 public class LoginFragment extends Fragment {
 
@@ -38,12 +42,16 @@ public class LoginFragment extends Fragment {
     TextView mCreateAccountText;
     private FirebaseAuth mAuth;
 
+    private UserViewModel mUserViewModel;
+
 
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         mAuth = FirebaseAuth.getInstance();
         Log.d(TAG, "LoginFragment: onCreate()");
+        Activity activity = requireActivity();
+        mUserViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(UserViewModel.class);
     }
 
     @Override
@@ -93,6 +101,7 @@ public class LoginFragment extends Fragment {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         Log.i(TAG, "LoginFragment: User Login Success");
+                                        mUserViewModel.setCurrentUser();
                                         Intent intent = new Intent(getActivity(), HomeActivity.class);
 
                                         // start to the home activity
