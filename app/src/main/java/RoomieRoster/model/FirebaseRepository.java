@@ -16,11 +16,10 @@ public class FirebaseRepository {
     }
 
     public void insertUser(User user){
-        //String key = database.child("users").push().getKey();
-        String key = user.email;
-        //Map<String, Object> userValues = user.toMap();
+        String key = user.uid;
+        Map<String, Object> userValues = user.toMap();
         if(key != null){
-            database.child("users").child(key).setValue(user);
+            database.child("users").child(key).setValue(userValues);
         }
 
     }

@@ -24,6 +24,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import RoomieRoster.UI.Activities.LoginActivity;
 import RoomieRoster.UI.Activities.RegisterActivity;
@@ -116,7 +117,6 @@ public class RegisterFragment extends Fragment {
                         Toast.makeText(view.getContext(),"Enter Password",Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    User user = new User(name, email, phone, "1234");
                     //Create a User within Firebase using FirebaseAuth, go to LoginActivity on Success
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -127,7 +127,9 @@ public class RegisterFragment extends Fragment {
                                         Log.i(TAG, "RegisterFragment: Create User Account Success");
                                         Toast.makeText(view.getContext(), "Create User Account Success.",
                                                 Toast.LENGTH_SHORT).show();
-
+                                        FirebaseUser curr = mAuth.getCurrentUser();
+                                        String uid = curr.getUid();
+                                        User user = new User(name, email, phone, uid, "1234");
                                         mUserViewModel.insert(user);
                                         Intent intent = new Intent(getActivity(), LoginActivity.class);
 

@@ -13,6 +13,8 @@ public class User {
     public String email;
     public String phone;
     public String house_id;
+
+    public String uid;
     public String payment_acct;
     public Map<String, String> preferences;
     public Map<String, Boolean> chores;
@@ -22,11 +24,12 @@ public class User {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String name, String email, String phone, String house_id) {
+    public User(String name, String email, String phone, String uid,String house_id) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.house_id = house_id;
+        this.uid = uid;
         this.payment_acct = "";
         this.preferences = new HashMap<>();
         this.preferences.put("location", "on");
