@@ -11,7 +11,6 @@ import android.util.Log;
 
 import com.RoomieRoster.R;
 
-
 public class LoginActivity extends AppCompatActivity {
     final String TAG = "LoginActivity";
     @Override

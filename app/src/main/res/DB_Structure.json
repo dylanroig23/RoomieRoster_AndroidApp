@@ -1,0 +1,95 @@
+{
+  "users": {
+    "user1": {
+      "name": "user1",
+      "email": "user1@example.com",
+      "phone": "111-111-1111",
+      "house" : "house1",
+      "payment_acct" : "151513421r51",
+      "preferences" : {
+        "location" : "on"
+      },
+      "chores" : {
+        "chore1" : true
+      },
+      "payments": {
+        "payment1" : true
+      }
+    }
+  },
+  "house": {
+    "house1": {
+      "address": "123 Summit St",
+      "city": "Columbus",
+      "state" : "OH",
+      "zipcode" : "43201",
+      "users": {
+        "user1" : true
+      },
+      "events" : {
+        "event1" : true
+      },
+      "chores" : {
+        "chore1" : true
+      },
+      "expenses" : {
+        "expense1" : true
+      },
+      "status": "active",
+      "code": "12345"
+    }
+  },
+  "chores": {
+    "chore1": {
+      "house": "house1",
+      "name": "Clean Kitchen",
+      "description" : "Clean all counter tops and surfaces, sweep",
+      "due_date": "1/23/24",
+      "status": "incomplete",
+      "assigned_to": null,
+      "frequency" : "weekly",
+      "type" : "cleaning",
+      "completed" : false,
+      "completed_by" : null
+    }
+  },
+  "events" : {
+    "event1": {
+      "title" : "Event Title",
+      "date" : "1/2/24",
+      "description" : "Description of event 1",
+      "creator" : "user1",
+      "house" : "house1"
+    }
+  },
+  "expense" : {
+    "expense1" : {
+      "title" : "Water Bill",
+      "description" : "Monthly Water bill",
+      "date_added" : "1/23/24",
+      "amount" : "50",
+      "creator" : "user1",
+      "house": "house1",
+      "num_payees" : 1,
+      "payees" : {
+        "user1" : true
+      },
+      "paid" : {
+        "user1" : false
+      },
+      "payments" : {
+        "payment1" : true
+      }
+    }
+  },
+  "payment" : {
+    "payment1" : {
+      "user" : "user1",
+      "description" : "payment for said expense by said person",
+      "expense" : "expense1",
+      "date" : "1/23/24",
+      "amount" : "50",
+      "payment_acct" : "151513421r51"
+    }
+  }
+}
