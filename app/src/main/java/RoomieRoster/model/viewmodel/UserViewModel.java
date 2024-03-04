@@ -28,7 +28,7 @@ public class UserViewModel extends AndroidViewModel{
     public void setCurrentUser(){
         FirebaseUser user = auth_FB.getCurrentUser();
         if(user != null){
-            currentUser.setValue(user.getEmail());
+            currentUser.setValue(user.getUid());
         }
     }
     public LiveData<String> getCurrentUser(){
@@ -36,7 +36,7 @@ public class UserViewModel extends AndroidViewModel{
         if (currentString == null){
             FirebaseUser user = auth_FB.getCurrentUser();
             if (user != null){
-                currentUser.setValue(user.getEmail());
+                currentUser.setValue(user.getUid());
             }
         }
         return currentUser;
