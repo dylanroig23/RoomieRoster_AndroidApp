@@ -37,7 +37,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/New_House"
+        android:text="@string/HouseOption_New"
         android:id="@+id/btn_new_house"
         android:textColor="#36454F"
         android:textSize="30sp"
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:background="@drawable/rounded_edittext_bg"
-        android:text="@string/Join_House"
+        android:text="@string/House_Option_Join"
         android:id="@+id/btn_join_house"
         android:textAllCaps="false"
         android:textColor="#36454F"
