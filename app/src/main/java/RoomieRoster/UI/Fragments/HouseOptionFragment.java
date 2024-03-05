@@ -18,7 +18,9 @@ import com.RoomieRoster.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import RoomieRoster.UI.Activities.CreateHouseActivity;
 import RoomieRoster.UI.Activities.HomeActivity;
+import RoomieRoster.UI.Activities.JoinHouseActivity;
 import RoomieRoster.UI.Activities.RegisterActivity;
 
 public class HouseOptionFragment extends Fragment {
@@ -36,62 +38,68 @@ public class HouseOptionFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v;
-        Log.d(TAG, "LoginFragment: onCreateView()");
+        Log.d(TAG, "HouseOptionFragment: onCreateView()");
 
         v = inflater.inflate(R.layout.fragment_house_option, container, false);
 
         mJoinHouseButton = v.findViewById(R.id.btn_join_house);
         mNewHouseButton = v.findViewById(R.id.btn_new_house);
 
-        // CHANGE TO ONCLICK FOR EACH HOUSE BUTTON
-//        mCreateAccountText = v.findViewById(R.id.text_create_account);
-//        if (mCreateAccountText != null) {
-//            mCreateAccountText.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Log.d(TAG, "LoginFragment: Create Account Button Clicked");
-//                    Intent intent = new Intent(getActivity(), RegisterActivity.class);
-//
-//                    //start the register activity
-//                    startActivity(intent);
-//
-//                    //finish the login activity
-//                    getActivity().finish();
-//                }
-//            });
-//        }
-//        return v;
-//    }
+        if (mJoinHouseButton != null) {
+            mJoinHouseButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d(TAG, "HouseOptionFragment: Join House Button Pressed");
+
+                    Intent intent = new Intent(getActivity(), JoinHouseActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
+            });
+        }
+
+        if (mNewHouseButton != null) {
+            mNewHouseButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d(TAG, "HouseOptionFragment: New House Button Pressed");
+
+                    Intent intent = new Intent(getActivity(), CreateHouseActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
+            });
+        }
         return v;
     }
     @Override
     public void onStart(){
         super.onStart();
-        Log.d(TAG, "onStart() called");
+        Log.d(TAG, "HouseOptionFragment: onStart() called");
     }
 
     @Override
     public void onResume(){
         super.onResume();
-        Log.d(TAG, "onResume() called");
+        Log.d(TAG, "HouseOptionFragment: onResume() called");
     }
 
     @Override
     public void onPause(){
         super.onPause();
-        Log.d(TAG, "onPause() called");
+        Log.d(TAG, "HouseOptionFragment: onPause() called");
     }
 
     @Override
     public void onStop(){
         super.onStop();
-        Log.d(TAG, "onStop() called");
+        Log.d(TAG, "HouseOptionFragment: onStop() called");
     }
 
     @Override
     public void onDestroy(){
         super.onDestroy();
-        Log.d(TAG, "onDestroy() called");
+        Log.d(TAG, "HouseOptionFragment: onDestroy() called");
     }
 
 }
