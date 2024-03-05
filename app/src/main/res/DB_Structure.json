@@ -17,7 +17,7 @@
       }
     }
   },
-  "house": {
+  "houses": {
     "house1": {
       "address": "123 Summit St",
       "city": "Columbus",

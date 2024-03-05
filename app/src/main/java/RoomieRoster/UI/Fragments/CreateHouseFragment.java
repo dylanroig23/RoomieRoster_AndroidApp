@@ -1,5 +1,6 @@
 package RoomieRoster.UI.Fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,11 +13,18 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.RoomieRoster.R;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.Random;
+
 import RoomieRoster.UI.Activities.LoginActivity;
+import RoomieRoster.model.House;
+import RoomieRoster.model.viewmodel.HouseViewModel;
+import RoomieRoster.model.viewmodel.UserViewModel;
 
 public class CreateHouseFragment extends Fragment {
     private static final String TAG = "CreateHouseFragment";
@@ -31,10 +39,15 @@ public class CreateHouseFragment extends Fragment {
 
     TextInputEditText mEditTextNickname;
     Button mCreateHouseButton;
+    private HouseViewModel mHouseViewModel;
+    private int mMinCode = 1;
+    private int mMaxCode = 1000;
 
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+        Activity activity = requireActivity();
+        mHouseViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(HouseViewModel.class);
         Log.d(TAG, TAG + ": onCreate()");
     }
 
@@ -107,9 +120,11 @@ public class CreateHouseFragment extends Fragment {
                         return;
                     }
 
-                    //add logic for creating a new house here
-
-
+                    // Eventually need to develop a way to not repeat number for house codes
+                    Random random = new Random();
+                    int randomNumber = random.nextInt(mMaxCode - mMinCode + 1) + mMinCode;
+                    House newHouse = new House(houseNumber + " " + streetName, cityName, stateName, zipcodeNumber, Integer.toString(randomNumber));
+                    mHouseViewModel.insert(newHouse);
 
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
                     startActivity(intent);
