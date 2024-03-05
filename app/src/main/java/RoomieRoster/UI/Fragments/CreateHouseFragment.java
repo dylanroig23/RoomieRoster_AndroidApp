@@ -108,6 +108,9 @@ public class CreateHouseFragment extends Fragment {
                     }
 
                     //add logic for creating a new house here
+
+
+
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
                     startActivity(intent);
                     getActivity().finish();

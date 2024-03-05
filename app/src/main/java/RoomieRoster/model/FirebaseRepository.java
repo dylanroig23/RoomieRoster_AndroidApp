@@ -24,5 +24,13 @@ public class FirebaseRepository {
 
     }
 
+    public void insertHouse(House house){
+        String key = house.code;
+        Map<String, Object> userValues = house.toMap();
+        if(key != null){
+            database.child("house").child(key).setValue(userValues);
+        }
+
+    }
 
 }

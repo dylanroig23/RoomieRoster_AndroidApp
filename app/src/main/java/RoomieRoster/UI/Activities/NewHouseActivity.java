@@ -9,11 +9,10 @@ import androidx.fragment.app.FragmentManager;
 
 import com.RoomieRoster.R;
 
-import RoomieRoster.UI.Fragments.HouseOptionFragment;
 import RoomieRoster.UI.Fragments.JoinHouseFragment;
 
 
-public class JoinHouseActivity extends AppCompatActivity {
+public class NewHouseActivity extends AppCompatActivity {
     final String TAG = "JoinHouseActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
