@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/JoinHouse_Code"
-            android:id="@+id/email"
+            android:id="@+id/join_houseCode"
             android:background="@drawable/rounded_edittext_bg"
             android:paddingTop="10dp"
             android:paddingStart="10dp"
@@ -76,7 +76,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btn_login"
+            android:id="@+id/btn_join"
             android:text = "@string/JoinHouse_Join"
             android:background="@drawable/continue_button"
             android:textSize = "11sp"
