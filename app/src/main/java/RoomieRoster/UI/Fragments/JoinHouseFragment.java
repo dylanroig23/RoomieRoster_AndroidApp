@@ -64,6 +64,8 @@ public class JoinHouseFragment extends Fragment {
                     }
 
                     mHouseViewModel.addUserToHouse(mUserViewModel.getCurrentUser().getValue(), houseCode);
+                    // Update user's house code
+                    mUserViewModel.updateHouse(mUserViewModel.getCurrentUser().getValue(), houseCode);
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
                     startActivity(intent);
                     getActivity().finish();

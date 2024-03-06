@@ -26,6 +26,10 @@ public class FirebaseRepository {
 
     }
 
+    public @NonNull DatabaseReference getUser (@NonNull String userId) {
+        return database.child("users").child(userId);
+    }
+
     public void insertHouse(House house){
         String key = house.code;
         Map<String, Object> userValues = house.toMap();
