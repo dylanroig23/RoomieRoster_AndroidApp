@@ -13,4 +13,19 @@
     <string name="Register_Phone">Phone</string>
     <string name="Register_Password">Password</string>
     <string name="Home_InProgress">Home Page in Progress!</string>
+    <string name="HouseOption_New">New House</string>
+    <string name="House_Option_Join">Join House</string>
+    <string name="JoinHouse_Joining">Joining a House!</string>
+    <string name="JoinHouse_Code">House Code</string>
+    <string name="JoinHouse_Join">Join</string>
+    <string name="NewHouse_Create">Create a House!</string>
+    <string name="NewHouse_Number">House Number</string>
+    <string name="NewHouse_Street">Street</string>
+    <string name="NewHouse_City">City</string>
+    <string name="NewHouse_State">State</string>
+    <string name="NewHouse_ZipCode">Zip Code</string>
+    <string name="NewHouse_Nickname">Nickname</string>
+    <string name="NewHouse_CreateBtn">Create</string>
+    <string name="NewHouse_HouseCodeTxt">House Code: </string>
+    <string name="NewHouse_Code">Placeholder</string>
 </resources>

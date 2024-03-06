@@ -14,13 +14,23 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelStoreOwner;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.RoomieRoster.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
+import RoomieRoster.UI.Activities.HouseOptionActivity;
 import RoomieRoster.UI.Activities.LoginActivity;
 import RoomieRoster.UI.Activities.RegisterActivity;
+import RoomieRoster.model.User;
+import RoomieRoster.model.viewmodel.UserViewModel;
 
 public class RegisterFragment extends Fragment {
     private static final String TAG = "RegisterFragment";
@@ -34,10 +44,16 @@ public class RegisterFragment extends Fragment {
     TextInputLayout mTextInputLayoutPhone;
     TextInputLayout mTextInputLayoutPassword;
     Button mCreateAccountButton;
+    private FirebaseAuth mAuth;
+
+    private UserViewModel mUserViewModel;
 
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+        mAuth = FirebaseAuth.getInstance();
+        Activity activity = requireActivity();
+        mUserViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(UserViewModel.class);
         Log.d(TAG, "RegisterFragment: onCreate()");
     }
 
@@ -79,7 +95,7 @@ public class RegisterFragment extends Fragment {
 
                     name = String.valueOf(mEditTextName.getText());
                     email = String.valueOf(mEditTextEmail.getText());
-                    phone = String.valueOf(mEditTextPassword.getText());
+                    phone = String.valueOf(mEditTextPhone.getText());
                     password = String.valueOf(mEditTextPassword.getText());
 
                     if (TextUtils.isEmpty(name)) {
@@ -102,17 +118,34 @@ public class RegisterFragment extends Fragment {
                         Toast.makeText(view.getContext(),"Enter Password",Toast.LENGTH_SHORT).show();
                         return;
                     }
+                    //Create a User within Firebase using FirebaseAuth, go to LoginActivity on Success
+                    mAuth.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
 
-                    //ADD FIREBASE CREATE ACCOUNT HERE
+                                        Log.i(TAG, "RegisterFragment: Create User Account Success");
+                                        Toast.makeText(view.getContext(), "Create User Account Success.",
+                                                Toast.LENGTH_SHORT).show();
+                                        FirebaseUser curr = mAuth.getCurrentUser();
+                                        String uid = curr.getUid();
+                                        User user = new User(name, email, phone, uid, "1234");
+                                        mUserViewModel.insert(user);
+                                        Intent intent = new Intent(getActivity(), HouseOptionActivity.class);
 
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                                        // Start the HouseOptions
+                                        startActivity(intent);
 
-                    // Start the SecondActivity
-                    startActivity(intent);
-
-                    // Finish the LoginActivity
-                    getActivity().finish();
-
+                                        // Finish the RegisterActivity
+                                        getActivity().finish();
+                                    } else {
+                                        Log.e(TAG, "RegisterFragment: Create User Account Failed: " + task.getException().getMessage());
+                                        Toast.makeText(view.getContext(), "Create User Account Failed: " + task.getException().getMessage() + ". Please Try Again.",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
                 }
             });
         }

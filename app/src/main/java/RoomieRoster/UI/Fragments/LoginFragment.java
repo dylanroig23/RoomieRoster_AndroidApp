@@ -1,5 +1,6 @@
 package RoomieRoster.UI.Fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,13 +15,20 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.RoomieRoster.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import RoomieRoster.UI.Activities.HomeActivity;
 import RoomieRoster.UI.Activities.RegisterActivity;
+import RoomieRoster.model.viewmodel.UserViewModel;
 
 public class LoginFragment extends Fragment {
 
@@ -32,12 +40,18 @@ public class LoginFragment extends Fragment {
     TextInputLayout mTextInputLayoutPassword;
     Button mContinueButton;
     TextView mCreateAccountText;
+    private FirebaseAuth mAuth;
+
+    private UserViewModel mUserViewModel;
 
 
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+        mAuth = FirebaseAuth.getInstance();
         Log.d(TAG, "LoginFragment: onCreate()");
+        Activity activity = requireActivity();
+        mUserViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(UserViewModel.class);
     }
 
     @Override
@@ -80,15 +94,29 @@ public class LoginFragment extends Fragment {
                         return;
                     }
 
-                    Intent intent = new Intent(getActivity(), HomeActivity.class);
+                    // Firebase Sign-In, go to home screen on success
+                    mAuth.signInWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.i(TAG, "LoginFragment: User Login Success");
+                                        mUserViewModel.setCurrentUser();
+                                        Intent intent = new Intent(getActivity(), HomeActivity.class);
 
-                    // ADD FIREBASE LOGIN CHECK HERE
+                                        // start to the home activity
+                                        startActivity(intent);
 
-                    // Start the SecondActivity
-                    startActivity(intent);
+                                        // finish the login activity
+                                        getActivity().finish();
+                                    } else {
+                                        Log.d(TAG, "LoginFragment: User Login Fail: " + task.getException().getMessage());
+                                        Toast.makeText(view.getContext(), "Login Failed: " + task.getException().getMessage(),
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
 
-                    // Finish the LoginActivity
-                    getActivity().finish();
                 }
             });
         }
