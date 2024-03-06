@@ -1,5 +1,7 @@
 package RoomieRoster.model;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -30,7 +32,10 @@ public class FirebaseRepository {
         if(key != null){
             database.child("houses").child(key).setValue(userValues);
         }
+    }
 
+    public @NonNull DatabaseReference getHouse (@NonNull String houseCode) {
+        return database.child("houses").child(houseCode);
     }
 
 }
