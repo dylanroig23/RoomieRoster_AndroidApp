@@ -40,6 +40,7 @@ public class CreateHouseFragment extends Fragment {
     TextInputEditText mEditTextNickname;
     Button mCreateHouseButton;
     private HouseViewModel mHouseViewModel;
+    private UserViewModel mUserViewModel;
     private int mMinCode = 1;
     private int mMaxCode = 1000;
 
@@ -48,6 +49,8 @@ public class CreateHouseFragment extends Fragment {
         super.onCreate(icicle);
         Activity activity = requireActivity();
         mHouseViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(HouseViewModel.class);
+        mUserViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(UserViewModel.class);
+        mUserViewModel.setCurrentUser();
         Log.d(TAG, TAG + ": onCreate()");
     }
 
@@ -124,6 +127,7 @@ public class CreateHouseFragment extends Fragment {
                     Random random = new Random();
                     int randomNumber = random.nextInt(mMaxCode - mMinCode + 1) + mMinCode;
                     House newHouse = new House(houseNumber + " " + streetName, cityName, stateName, zipcodeNumber, Integer.toString(randomNumber));
+                    newHouse.addUser(mUserViewModel.getCurrentUser().getValue());
                     mHouseViewModel.insert(newHouse);
 
                     Intent intent = new Intent(getActivity(), LoginActivity.class);

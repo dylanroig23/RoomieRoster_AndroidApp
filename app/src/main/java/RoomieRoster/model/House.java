@@ -33,6 +33,7 @@ public class House {
         result.put("city", this.city);
         result.put("state", this.state);
         result.put("zipcode", this.zipcode);
+        result.put("users", this.users);
         //result.put("code", this.code);
 
 
