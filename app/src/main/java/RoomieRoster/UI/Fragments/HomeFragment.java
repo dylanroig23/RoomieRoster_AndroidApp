@@ -62,7 +62,6 @@ public class HomeFragment extends Fragment {
                     user.delete();
                     // Delete user data from real time database
                     mUserViewModel.deleteAccount(mUserViewModel.getCurrentUser().getValue());
-                    // TODO: Delete user data from house
 
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
                     startActivity(intent);
