@@ -9,6 +9,10 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.HashMap;
+import java.util.Map;
+
+
 import RoomieRoster.model.FirebaseRepository;
 import RoomieRoster.model.User;
 
@@ -46,6 +50,12 @@ public class UserViewModel extends AndroidViewModel{
         db_FB.insertUser(user);
     }
 
+    public void updateHouse(String user_id, String houseCode){
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("house", houseCode);
+        db_FB.getUser(user_id).updateChildren(childUpdates);
+    }
+
     public void updateName(){
 
     }
@@ -54,8 +64,8 @@ public class UserViewModel extends AndroidViewModel{
 
     }
 
-    public void deleteAccount(){
-
+    public void deleteAccount(String user_id){
+        db_FB.deleteUser(user_id);
     }
 
 

@@ -28,4 +28,5 @@
     <string name="NewHouse_CreateBtn">Create</string>
     <string name="NewHouse_HouseCodeTxt">House Code: </string>
     <string name="NewHouse_Code">Placeholder</string>
+    <string name="Home_Delete">Delete Account</string>
 </resources>

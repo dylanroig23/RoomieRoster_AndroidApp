@@ -203,6 +203,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/NewHouse_Code"
+            android:id = "@+id/txt_houseCode"
             android:clickable="true"
             android:textSize="20sp"
             android:paddingBottom="30dp"

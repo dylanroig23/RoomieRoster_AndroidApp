@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,7 @@ public class CreateHouseFragment extends Fragment {
     TextInputEditText mEditTextZipCode;
 
     TextInputEditText mEditTextNickname;
+    TextView mHouseCode;
     Button mCreateHouseButton;
     private HouseViewModel mHouseViewModel;
     private UserViewModel mUserViewModel;
@@ -67,6 +69,15 @@ public class CreateHouseFragment extends Fragment {
         mEditTextZipCode = v.findViewById(R.id.zipcode);
         mEditTextNickname = v.findViewById(R.id.nickname);
         mCreateHouseButton = v.findViewById(R.id.btn_createHouse);
+        mHouseCode = v.findViewById(R.id.txt_houseCode);
+
+        // Generate House Code
+        // Eventually need to develop a way to not repeat number for house codes
+        Random random = new Random();
+        int randomNumber = random.nextInt(mMaxCode - mMinCode + 1) + mMinCode;
+        String houseCode = Integer.toString(randomNumber);
+        // Update houseCode on UI
+        mHouseCode.setText(houseCode);
 
         if (mCreateHouseButton != null) {
             mCreateHouseButton.setOnClickListener(new View.OnClickListener() {
@@ -123,12 +134,11 @@ public class CreateHouseFragment extends Fragment {
                         return;
                     }
 
-                    // Eventually need to develop a way to not repeat number for house codes
-                    Random random = new Random();
-                    int randomNumber = random.nextInt(mMaxCode - mMinCode + 1) + mMinCode;
-                    House newHouse = new House(houseNumber + " " + streetName, cityName, stateName, zipcodeNumber, Integer.toString(randomNumber));
+                    House newHouse = new House(houseNumber + " " + streetName, cityName, stateName, zipcodeNumber, houseCode);
                     newHouse.addUser(mUserViewModel.getCurrentUser().getValue());
                     mHouseViewModel.insert(newHouse);
+                    // Update user's house code
+                    mUserViewModel.updateHouse(mUserViewModel.getCurrentUser().getValue(), houseCode);
 
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
                     startActivity(intent);
