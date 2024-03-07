@@ -64,8 +64,8 @@ public class UserViewModel extends AndroidViewModel{
 
     }
 
-    public void deleteAccount(){
-
+    public void deleteAccount(String user_id){
+        db_FB.getUser(user_id).removeValue();
     }
 
 

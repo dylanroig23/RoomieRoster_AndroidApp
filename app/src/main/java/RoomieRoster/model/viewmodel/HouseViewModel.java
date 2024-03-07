@@ -39,4 +39,7 @@ public class HouseViewModel extends AndroidViewModel {
 
     public void insert(House house) { db_FirebaseRepo.insertHouse(house); }
 
+    public void removeUser(String user_id){
+
+    }
 }
