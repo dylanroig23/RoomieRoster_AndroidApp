@@ -31,4 +31,15 @@
         android:textAllCaps="false"
         android:layout_marginTop="10dp"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Home_Chores"
+        android:id="@+id/btn_chores"
+        android:textColor="#36454F"
+        android:textSize="30sp"
+        android:background="@drawable/rounded_edittext_bg"
+        android:textAllCaps="false"
+        android:layout_marginTop="10dp"/>
+
 </LinearLayout>

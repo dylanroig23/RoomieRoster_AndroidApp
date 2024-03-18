@@ -29,4 +29,8 @@
     <string name="NewHouse_HouseCodeTxt">House Code: </string>
     <string name="NewHouse_Code">Placeholder</string>
     <string name="Home_Delete">Delete Account</string>
+    <string name="Home_Chores">Chores</string>
+    <string name="Chore_View_Complete">Complete</string>
+    <string name="Chore_View_Assignment">"Assignment: "</string>
+    <string name="Chore_View_None">None</string>
 </resources>
