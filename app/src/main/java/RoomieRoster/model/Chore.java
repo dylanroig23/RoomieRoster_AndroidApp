@@ -3,7 +3,7 @@ package RoomieRoster.model;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Model_Chore {
+public class Chore {
     public String house;
     public String name;
     public String description;
@@ -15,17 +15,20 @@ public class Model_Chore {
     public boolean completed;
     public String completedBy;
 
-    public Model_Chore() {
-        // Default constructor required for calls to DataSnapshot.getValue(Model_Chore.class)
+    public String choreID;
+
+    public Chore() {
+        // Default constructor required for calls to DataSnapshot.getValue(Chore.class)
     }
 
     // only using house, name, completed, and assigned_to right now as this is all that is used in the
     // chore tabs for the RecyclerView
-    public Model_Chore(String house, String name, boolean completed, String assigned_to) {
+    public Chore(String house, String name, boolean completed, String assigned_to, String choreID) {
         this.house = house;
         this.name = name;
         this.completed = completed;
         this.assigned_to = assigned_to;
+        this.choreID = choreID;
     }
 
     public Map<String, Object> toMap() {

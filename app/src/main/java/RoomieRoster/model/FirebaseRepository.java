@@ -70,4 +70,12 @@ public class FirebaseRepository {
         return database.child("houses").child(houseCode);
     }
 
+    public void insertChore(Chore chore) {
+        String key = chore.choreID;
+        Map<String, Object> choreValues = chore.toMap();
+        if (key != null){
+            database.child("chores").child(key).setValue(choreValues);
+        }
+    }
+
 }

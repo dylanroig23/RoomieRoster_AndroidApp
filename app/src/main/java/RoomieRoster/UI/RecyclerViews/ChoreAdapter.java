@@ -14,9 +14,9 @@ import java.util.List;
 public class ChoreAdapter extends RecyclerView.Adapter<ChoreViewHolder> {
 
     Context context;
-    List<Chore> chores;
+    List<SingleChore> chores;
 
-    public ChoreAdapter(Context context, List<Chore> chores) {
+    public ChoreAdapter(Context context, List<SingleChore> chores) {
         this.context = context;
         this.chores = chores;
     }

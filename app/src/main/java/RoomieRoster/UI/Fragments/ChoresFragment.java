@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import RoomieRoster.UI.RecyclerViews.ChoreAdapter;
-import RoomieRoster.UI.RecyclerViews.Chore;
+import RoomieRoster.UI.RecyclerViews.SingleChore;
 
 public class ChoresFragment extends Fragment {
     private static final String TAG = "ChoresFragment";
@@ -36,19 +36,19 @@ public class ChoresFragment extends Fragment {
         RecyclerView recyclerView = v.findViewById(R.id.recyclerview);
 
         //replace with getting the chores list from the ViewModel
-        List<Chore> chores = new ArrayList<>();
-        chores.add(new Chore("Wash Dishes", "Dylan"));
-        chores.add(new Chore("Take Out Trash", "Nick"));
-        chores.add(new Chore("Clean Carpet", "Owen"));
-        chores.add(new Chore("Get Mail", "Jacob"));
-        chores.add(new Chore("Wash Dishes", "Dylan"));
-        chores.add(new Chore("Take Out Trash", "Nick"));
-        chores.add(new Chore("Clean Carpet", "Owen"));
-        chores.add(new Chore("Get Mail", "Jacob"));
-        chores.add(new Chore("Wash Dishes", "Dylan"));
-        chores.add(new Chore("Take Out Trash", "Nick"));
-        chores.add(new Chore("Clean Carpet", "Owen"));
-        chores.add(new Chore("Get Mail", "Jacob"));
+        List<SingleChore> chores = new ArrayList<>();
+        chores.add(new SingleChore("Wash Dishes", "Dylan"));
+        chores.add(new SingleChore("Take Out Trash", "Nick"));
+        chores.add(new SingleChore("Clean Carpet", "Owen"));
+        chores.add(new SingleChore("Get Mail", "Jacob"));
+        chores.add(new SingleChore("Wash Dishes", "Dylan"));
+        chores.add(new SingleChore("Take Out Trash", "Nick"));
+        chores.add(new SingleChore("Clean Carpet", "Owen"));
+        chores.add(new SingleChore("Get Mail", "Jacob"));
+        chores.add(new SingleChore("Wash Dishes", "Dylan"));
+        chores.add(new SingleChore("Take Out Trash", "Nick"));
+        chores.add(new SingleChore("Clean Carpet", "Owen"));
+        chores.add(new SingleChore("Get Mail", "Jacob"));
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

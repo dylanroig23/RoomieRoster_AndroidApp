@@ -1,10 +1,10 @@
 package RoomieRoster.UI.RecyclerViews;
 
-public class Chore {
+public class SingleChore {
     String choreTitle;
     String assignedTo;
 
-    public Chore (String title, String assignment) {
+    public SingleChore(String title, String assignment) {
         this.choreTitle = title;
         this.assignedTo = assignment;
     }
