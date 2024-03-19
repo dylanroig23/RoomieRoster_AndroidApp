@@ -32,6 +32,7 @@ public class ChoreAdapter extends RecyclerView.Adapter<ChoreViewHolder> {
     public void onBindViewHolder(@NonNull ChoreViewHolder holder, int position) {
         holder.mTextViewChoreName.setText(chores.get(position).getChoreTitle());
         holder.mTextViewAssignedTo.setText(chores.get(position).getAssignedTo());
+        holder.mTextViewAssignment.setText("Assignment: ");
     }
 
     @Override

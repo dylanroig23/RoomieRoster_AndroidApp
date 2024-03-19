@@ -33,4 +33,7 @@
     <string name="Chore_View_Complete">Complete</string>
     <string name="Chore_View_Assignment">"Assignment: "</string>
     <string name="Chore_View_None">None</string>
+    <string name="Chores_chores">Current House Chores</string>
+    <string name="Chores_NewChore">New Chore</string>
+    <string name="Chores_Back">Home</string>
 </resources>

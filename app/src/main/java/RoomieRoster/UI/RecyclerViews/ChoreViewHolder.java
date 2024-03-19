@@ -12,9 +12,11 @@ public class ChoreViewHolder extends RecyclerView.ViewHolder {
 
     TextView mTextViewChoreName;
     TextView mTextViewAssignedTo;
+    TextView mTextViewAssignment;
     public ChoreViewHolder(@NonNull View choreView) {
         super(choreView);
         mTextViewChoreName = choreView.findViewById(R.id.choreName);
         mTextViewAssignedTo = choreView.findViewById(R.id.assignment);
+        mTextViewAssignment = choreView.findViewById(R.id.assign);
     }
 }

@@ -35,6 +35,7 @@ public class ChoresFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_chores, container, false);
         RecyclerView recyclerView = v.findViewById(R.id.recyclerview);
 
+        //replace with getting the chores list from the ViewModel
         List<Chore> chores = new ArrayList<>();
         chores.add(new Chore("Wash Dishes", "Dylan"));
         chores.add(new Chore("Take Out Trash", "Nick"));
