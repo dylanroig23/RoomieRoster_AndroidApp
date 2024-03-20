@@ -10,7 +10,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 
 public class FirebaseRepository {
@@ -70,12 +72,44 @@ public class FirebaseRepository {
         return database.child("houses").child(houseCode);
     }
 
-    public void insertChore(Chore chore) {
-        String key = chore.choreID;
-        Map<String, Object> choreValues = chore.toMap();
-        if (key != null){
-            database.child("chores").child(key).setValue(choreValues);
-        }
+    /*
+        insertChore() inserts the chore into the "chores" map, the "houses/chores" map, and
+        to the "users/chores" map who created the chore
+     */
+    public void insertChore(String choreName, String assignedTo, String userId) {
+        DatabaseReference userHouseRef = database.child("users/" + userId + "/house");
+        userHouseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String houseCode = snapshot.getValue(String.class);
+
+                    // add chore to the "chores" map
+                    Chore newChore = new Chore(houseCode, choreName, false, assignedTo, UUID.randomUUID().toString());
+                    String key = newChore.choreID;
+                    Map<String, Object> choreValues = newChore.toMap();
+                    if (key != null){
+                        database.child("chores").child(key).setValue(choreValues);
+                    }
+
+                    // add chore to the "houses" map
+                    Map<String, Object> choreUpdateHouses = new HashMap<>();
+                    choreUpdateHouses.put("houses/" + houseCode + "/chores/" + key, true);
+                    database.updateChildren(choreUpdateHouses);
+
+                    // add chore to the "users" map
+                    Map<String, Object> choreUpdateUsers = new HashMap<>();
+                    choreUpdateUsers.put("users/" + userId + "/chores/" + key, true);
+                    database.updateChildren(choreUpdateUsers);
+                } else {
+                    Log.e("FirebaseRepository: ", "House data does not exist");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("FirebaseRepository", error.getMessage());
+            }
+        });
     }
 
 }

@@ -27,7 +27,7 @@ public class ChoreViewModel extends AndroidViewModel {
 //
 //    }
 
-    public void insertNewChore(Chore newChore) {
-        db_FB.insertChore(newChore);
+    public void insertNewChore(String choreName, String assignedTo, String userId) {
+        db_FB.insertChore(choreName, assignedTo, userId);
     }
 }

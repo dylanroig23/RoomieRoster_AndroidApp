@@ -2,6 +2,8 @@ package RoomieRoster.UI.Fragments;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.RoomieRoster.R;
 import com.google.android.material.textfield.TextInputEditText;
@@ -18,6 +20,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import RoomieRoster.UI.Activities.ChoresActivity;
+import RoomieRoster.model.viewmodel.ChoreViewModel;
+import RoomieRoster.model.viewmodel.UserViewModel;
 
 
 public class NewChoreFragment extends Fragment {
@@ -27,12 +31,16 @@ public class NewChoreFragment extends Fragment {
 
     Button mGoBackButton;
     Button mAddChoreButton;
+    UserViewModel mUserViewModel;
+    ChoreViewModel mChoreViewModel;
 
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         Activity activity = requireActivity();
-        // put the chore view model here?
+        mChoreViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(ChoreViewModel.class);
+        mUserViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(UserViewModel.class);
+        mUserViewModel.setCurrentUser();
         Log.d(TAG, TAG + ": onCreate()");
     }
 
@@ -81,7 +89,7 @@ public class NewChoreFragment extends Fragment {
                         return;
                     }
 
-                    //Section to add the new chore to the database
+                    mChoreViewModel.insertNewChore(choreName, assignedTo, mUserViewModel.getCurrentUser().getValue());
 
                     Intent intent = new Intent(getActivity(), ChoresActivity.class);
                     startActivity(intent);

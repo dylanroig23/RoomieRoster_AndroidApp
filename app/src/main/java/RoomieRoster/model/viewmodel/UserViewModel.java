@@ -56,8 +56,8 @@ public class UserViewModel extends AndroidViewModel{
         db_FB.getUser(user_id).updateChildren(childUpdates);
     }
 
-    public void updateName(){
-
+    public interface HouseCallback {
+        void onHouseReceived(String house);
     }
 
     public void updateEmail(){
