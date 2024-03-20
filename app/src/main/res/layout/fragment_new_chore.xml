@@ -54,13 +54,13 @@
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:paddingBottom="10dp"
-        android:id="@+id/number_hint">
+        android:id="@+id/NewChore_hint1">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/NewChore_ChoreName"
-            android:id="@+id/number"
+            android:id="@+id/NewChore_newChore"
             android:background="@drawable/rounded_edittext_bg"
             android:paddingTop="10dp"
             android:paddingStart="10dp"
@@ -71,7 +71,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/NewChore_choreName"
+        android:id="@+id/NewChore_hint2"
         android:layout_marginStart="15dp"
         android:paddingBottom="10dp"
         android:layout_marginEnd="15dp"
@@ -97,7 +97,16 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btn_createHouse"
+            android:id="@+id/btn_backButton"
+            android:text = "@string/NewChore_Back"
+            android:background="@drawable/continue_button"
+            android:textSize = "11sp"
+            android:layout_marginStart="35dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_addChore"
             android:text = "@string/NewChore_Add"
             android:background="@drawable/continue_button"
             android:textSize = "11sp"

@@ -40,4 +40,5 @@
     <string name="NewChore_ChoreName">Chore Name</string>
     <string name="NewChore_AssignedTo">Who is the chore assigned to?</string>
     <string name="NewChore_Add">Add Chore</string>
+    <string name="NewChore_Back">Go Back</string>
 </resources>
