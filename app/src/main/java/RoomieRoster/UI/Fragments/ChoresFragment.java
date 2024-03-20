@@ -76,7 +76,7 @@ public class ChoresFragment extends Fragment {
         }
 
         // new chore button controller
-        if (mHomeButton != null) {
+        if (mNewChoreButton != null) {
             mNewChoreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
