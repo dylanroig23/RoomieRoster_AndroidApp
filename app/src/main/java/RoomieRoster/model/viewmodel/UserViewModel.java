@@ -63,7 +63,7 @@ public class UserViewModel extends AndroidViewModel{
         Returns the house associated with the userId
         *could return LiveData if we wanted it to*
      */
-    public String getUserHouse(String userId) {
+    public LiveData<String> getUserHouse(String userId) {
         MutableLiveData<String> houseLiveData = new MutableLiveData<>();
         FirebaseRepository.OnUserHouseCallback callbackStructure = new FirebaseRepository.OnUserHouseCallback() {
             @Override
@@ -79,7 +79,7 @@ public class UserViewModel extends AndroidViewModel{
 
         db_FB.getUserHouse(userId, callbackStructure);
 
-        return houseLiveData.getValue();
+        return houseLiveData;
     }
 
     public void deleteAccount(String user_id){

@@ -84,11 +84,13 @@ public class FirebaseRepository {
 
     public void getUserHouse(String userId, OnUserHouseCallback callback) {
         DatabaseReference userRef = database.child("users").child(userId);
+        Log.i("FirebaseRepository", "FirebaseRespository: " + userRef.toString());
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     String house = snapshot.child("house").getValue(String.class);
+                    Log.i("FirebaseRepository", "FirebaseRespository: " + house);
                     callback.onUserHouseRetrieved(house);
                 } else {
                     callback.onError("User not found");

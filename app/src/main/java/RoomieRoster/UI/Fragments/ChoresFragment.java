@@ -1,5 +1,6 @@
 package RoomieRoster.UI.Fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,9 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,45 +26,63 @@ import RoomieRoster.UI.Activities.HomeActivity;
 import RoomieRoster.UI.Activities.NewChoreActivity;
 import RoomieRoster.UI.RecyclerViews.ChoreAdapter;
 import RoomieRoster.UI.RecyclerViews.SingleChore;
+import RoomieRoster.model.Chore;
+import RoomieRoster.model.viewmodel.ChoreViewModel;
+import RoomieRoster.model.viewmodel.UserViewModel;
 
 public class ChoresFragment extends Fragment {
     private static final String TAG = "ChoresFragment";
     Button mHomeButton;
     Button mNewChoreButton;
 
+    UserViewModel mUserViewModel;
+    ChoreViewModel mChoreViewModel;
+
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+        Activity activity = requireActivity();
+        mUserViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(UserViewModel.class);
+        mChoreViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(ChoreViewModel.class);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v;
         Log.d(TAG, TAG + ": onCreateView()");
-
         v = inflater.inflate(R.layout.fragment_chores, container, false);
         mHomeButton = v.findViewById(R.id.btn_choresHome);
         mNewChoreButton = v.findViewById(R.id.btn_choresNewChore);
         RecyclerView recyclerView = v.findViewById(R.id.recyclerview);
 
-        //replace with getting the chores list from the ViewModel
-        List<SingleChore> chores = new ArrayList<>();
-        chores.add(new SingleChore("Wash Dishes", "Dylan"));
-        chores.add(new SingleChore("Take Out Trash", "Nick"));
-        chores.add(new SingleChore("Clean Carpet", "Owen"));
-        chores.add(new SingleChore("Get Mail", "Jacob"));
-        chores.add(new SingleChore("Wash Dishes", "Dylan"));
-        chores.add(new SingleChore("Take Out Trash", "Nick"));
-        chores.add(new SingleChore("Clean Carpet", "Owen"));
-        chores.add(new SingleChore("Get Mail", "Jacob"));
-        chores.add(new SingleChore("Wash Dishes", "Dylan"));
-        chores.add(new SingleChore("Take Out Trash", "Nick"));
-        chores.add(new SingleChore("Clean Carpet", "Owen"));
-        chores.add(new SingleChore("Get Mail", "Jacob"));
 
-        // display the chores
+        List<SingleChore> recyclerViewChores = new ArrayList<>();
+        String uid = mUserViewModel.getCurrentUser().getValue();
+        mUserViewModel.getUserHouse(uid).observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String house) {
+                Log.i(TAG, TAG + ": house: " + house);
+                mChoreViewModel.getChoresForHouse(house).observe(getViewLifecycleOwner(), new Observer<List<Chore>>() {
+                    @Override
+                    public void onChanged(List<Chore> chores) {
+                        recyclerViewChores.clear();
+                        for (Chore chore : chores) {
+                            Log.i(TAG, TAG + ": ChoreName: " + chore.name);
+                            recyclerViewChores.add(new SingleChore(chore.name, chore.assigned_to));
+                        }
+
+                        for (SingleChore single : recyclerViewChores) {
+                            Log.i(TAG, "Name: " + single.getChoreTitle() + " Assigned To: " + single.getAssignedTo());
+                        }
+
+                        recyclerView.setAdapter(new ChoreAdapter(getActivity().getApplicationContext(), recyclerViewChores));
+                    }
+                });
+            }
+        });
+
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new ChoreAdapter(getActivity().getApplicationContext(), chores));
 
         // home button controller
         if (mHomeButton != null) {
