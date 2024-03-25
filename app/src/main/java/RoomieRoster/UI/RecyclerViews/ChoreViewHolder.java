@@ -16,7 +16,7 @@ public class ChoreViewHolder extends RecyclerView.ViewHolder {
     TextView mTextViewAssignedTo;
     TextView mTextViewAssignment;
     Button mCompleteButton;
-    public ChoreViewHolder(@NonNull View choreView) {
+    public ChoreViewHolder(@NonNull View choreView, ChoresViewInterface choresViewInterface) {
         super(choreView);
         mTextViewChoreName = choreView.findViewById(R.id.choreName);
         mTextViewAssignedTo = choreView.findViewById(R.id.assignment);
@@ -26,6 +26,12 @@ public class ChoreViewHolder extends RecyclerView.ViewHolder {
         mCompleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (choresViewInterface != null) {
+                    int position = getAbsoluteAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        choresViewInterface.onCompleteClick(position);
+                    }
+                }
                 Log.d("ChoreViewHolder", "ChoreViewHolder: Complete Chore Button Pressed");
             }
         });

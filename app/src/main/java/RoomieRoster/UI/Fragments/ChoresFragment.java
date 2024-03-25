@@ -25,18 +25,22 @@ import java.util.List;
 import RoomieRoster.UI.Activities.HomeActivity;
 import RoomieRoster.UI.Activities.NewChoreActivity;
 import RoomieRoster.UI.RecyclerViews.ChoreAdapter;
+import RoomieRoster.UI.RecyclerViews.ChoresViewInterface;
 import RoomieRoster.UI.RecyclerViews.SingleChore;
 import RoomieRoster.model.Chore;
 import RoomieRoster.model.viewmodel.ChoreViewModel;
 import RoomieRoster.model.viewmodel.UserViewModel;
 
-public class ChoresFragment extends Fragment {
+public class ChoresFragment extends Fragment implements ChoresViewInterface {
     private static final String TAG = "ChoresFragment";
     Button mHomeButton;
     Button mNewChoreButton;
 
     UserViewModel mUserViewModel;
     ChoreViewModel mChoreViewModel;
+
+    List<SingleChore> recyclerViewChores;
+    ChoreAdapter mChoreAdapter;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -56,7 +60,7 @@ public class ChoresFragment extends Fragment {
         RecyclerView recyclerView = v.findViewById(R.id.recyclerview);
 
 
-        List<SingleChore> recyclerViewChores = new ArrayList<>();
+        recyclerViewChores = new ArrayList<>();
         String uid = mUserViewModel.getCurrentUser().getValue();
         mUserViewModel.getUserHouse(uid).observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -75,7 +79,8 @@ public class ChoresFragment extends Fragment {
                             Log.i(TAG, "Name: " + single.getChoreTitle() + " Assigned To: " + single.getAssignedTo());
                         }
 
-                        recyclerView.setAdapter(new ChoreAdapter(getActivity().getApplicationContext(), recyclerViewChores));
+                        mChoreAdapter = new ChoreAdapter(getActivity().getApplicationContext(), recyclerViewChores, ChoresFragment.this);
+                        recyclerView.setAdapter(mChoreAdapter);
                     }
                 });
             }
@@ -141,5 +146,11 @@ public class ChoresFragment extends Fragment {
     public void onDestroy(){
         super.onDestroy();
         Log.d(TAG, TAG + ": onDestroy() called");
+    }
+
+    @Override
+    public void onCompleteClick(int position) {
+        recyclerViewChores.remove(position);
+        mChoreAdapter.notifyItemRemoved(position);
     }
 }

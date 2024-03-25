@@ -12,20 +12,22 @@ import com.RoomieRoster.R;
 import java.util.List;
 
 public class ChoreAdapter extends RecyclerView.Adapter<ChoreViewHolder> {
+    private final ChoresViewInterface mChoresViewInterface;
 
     Context context;
     List<SingleChore> chores;
 
-    public ChoreAdapter(Context context, List<SingleChore> chores) {
+    public ChoreAdapter(Context context, List<SingleChore> chores, ChoresViewInterface choresViewInterface) {
         this.context = context;
         this.chores = chores;
+        this.mChoresViewInterface = choresViewInterface;
     }
 
 
     @NonNull
     @Override
     public ChoreViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ChoreViewHolder(LayoutInflater.from(context).inflate(R.layout.chore_view, parent, false));
+        return new ChoreViewHolder(LayoutInflater.from(context).inflate(R.layout.chore_view, parent, false), mChoresViewInterface);
     }
 
     @Override

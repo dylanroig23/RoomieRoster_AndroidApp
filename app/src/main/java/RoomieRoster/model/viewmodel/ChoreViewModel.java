@@ -49,4 +49,8 @@ public class ChoreViewModel extends AndroidViewModel {
         db_FB.getChoresForHouse(houseId, callbackHandle);
         return currentChores;
     }
+
+    public void deleteChore(String houseId, String choreId) {
+        db_FB.deleteChore(houseId, choreId);
+    }
 }

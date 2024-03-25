@@ -174,4 +174,9 @@ public class FirebaseRepository {
         });
     }
 
+    public void deleteChore(String houseId, String choreId) {
+        database.child("houses").child(houseId).child("chores").child(choreId).removeValue();
+        database.child("chores").child(choreId).removeValue();
+    }
+
 }
