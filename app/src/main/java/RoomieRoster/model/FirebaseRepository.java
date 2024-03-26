@@ -130,10 +130,12 @@ public class FirebaseRepository {
                     choreUpdateHouses.put("houses/" + houseCode + "/chores/" + key, true);
                     database.updateChildren(choreUpdateHouses);
 
-                    // add chore to the "users" map
-                    Map<String, Object> choreUpdateUsers = new HashMap<>();
-                    choreUpdateUsers.put("users/" + userId + "/chores/" + key, true);
-                    database.updateChildren(choreUpdateUsers);
+                    // add chore to the "users" map (commented out for the time being, the reason
+                    // being is that we want the chores assigned to the one who they are assigned to
+                    // not the user who created them
+//                    Map<String, Object> choreUpdateUsers = new HashMap<>();
+//                    choreUpdateUsers.put("users/" + userId + "/chores/" + key, true);
+//                    database.updateChildren(choreUpdateUsers);
                 } else {
                     Log.e("FirebaseRepository: ", "House data does not exist");
                 }
@@ -163,6 +165,7 @@ public class FirebaseRepository {
                 List<Chore> chores = new ArrayList<>();
                 for (DataSnapshot snap : snapshot.getChildren()) {
                     Chore addChore = snap.getValue(Chore.class);
+                    addChore.choreID = snap.getKey();
                     chores.add(addChore);
                 }
                 callback.onDataLoaded(chores);
@@ -175,7 +178,10 @@ public class FirebaseRepository {
     }
 
     public void deleteChore(String houseId, String choreId) {
+        //remove from the "houses" map
         database.child("houses").child(houseId).child("chores").child(choreId).removeValue();
+
+        //remove from the "chores" map
         database.child("chores").child(choreId).removeValue();
     }
 

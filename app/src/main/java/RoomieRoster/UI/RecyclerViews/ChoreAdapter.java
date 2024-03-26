@@ -11,13 +11,15 @@ import com.RoomieRoster.R;
 
 import java.util.List;
 
+import RoomieRoster.model.Chore;
+
 public class ChoreAdapter extends RecyclerView.Adapter<ChoreViewHolder> {
     private final ChoresViewInterface mChoresViewInterface;
 
     Context context;
-    List<SingleChore> chores;
+    List<Chore> chores;
 
-    public ChoreAdapter(Context context, List<SingleChore> chores, ChoresViewInterface choresViewInterface) {
+    public ChoreAdapter(Context context, List<Chore> chores, ChoresViewInterface choresViewInterface) {
         this.context = context;
         this.chores = chores;
         this.mChoresViewInterface = choresViewInterface;

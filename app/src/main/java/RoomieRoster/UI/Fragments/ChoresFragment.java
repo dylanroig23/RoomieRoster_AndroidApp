@@ -26,7 +26,6 @@ import RoomieRoster.UI.Activities.HomeActivity;
 import RoomieRoster.UI.Activities.NewChoreActivity;
 import RoomieRoster.UI.RecyclerViews.ChoreAdapter;
 import RoomieRoster.UI.RecyclerViews.ChoresViewInterface;
-import RoomieRoster.UI.RecyclerViews.SingleChore;
 import RoomieRoster.model.Chore;
 import RoomieRoster.model.viewmodel.ChoreViewModel;
 import RoomieRoster.model.viewmodel.UserViewModel;
@@ -39,7 +38,7 @@ public class ChoresFragment extends Fragment implements ChoresViewInterface {
     UserViewModel mUserViewModel;
     ChoreViewModel mChoreViewModel;
 
-    List<SingleChore> recyclerViewChores;
+    List<Chore> recyclerViewChores;
     ChoreAdapter mChoreAdapter;
 
     @Override
@@ -65,18 +64,14 @@ public class ChoresFragment extends Fragment implements ChoresViewInterface {
         mUserViewModel.getUserHouse(uid).observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String house) {
-                Log.i(TAG, TAG + ": house: " + house);
+                //Log.i(TAG, TAG + ": house: " + house);
                 mChoreViewModel.getChoresForHouse(house).observe(getViewLifecycleOwner(), new Observer<List<Chore>>() {
                     @Override
                     public void onChanged(List<Chore> chores) {
                         recyclerViewChores.clear();
                         for (Chore chore : chores) {
-                            Log.i(TAG, TAG + ": ChoreName: " + chore.name);
-                            recyclerViewChores.add(new SingleChore(chore.name, chore.assigned_to));
-                        }
-
-                        for (SingleChore single : recyclerViewChores) {
-                            Log.i(TAG, "Name: " + single.getChoreTitle() + " Assigned To: " + single.getAssignedTo());
+                            //Log.i(TAG, TAG + ": ChoreName: " + chore.name + " ChoreID: " + chore.choreID);
+                            recyclerViewChores.add(chore);
                         }
 
                         mChoreAdapter = new ChoreAdapter(getActivity().getApplicationContext(), recyclerViewChores, ChoresFragment.this);
@@ -150,7 +145,10 @@ public class ChoresFragment extends Fragment implements ChoresViewInterface {
 
     @Override
     public void onCompleteClick(int position) {
+        Chore choreToRemove = recyclerViewChores.get(position);
+        Log.i(TAG, TAG + ": ChoreID: " + choreToRemove.getChoreID() + " ChoreHouse: " + choreToRemove.house);
         recyclerViewChores.remove(position);
         mChoreAdapter.notifyItemRemoved(position);
+        mChoreViewModel.deleteChore(choreToRemove.getChoreHouse(), choreToRemove.getChoreID());
     }
 }

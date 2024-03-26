@@ -1,3 +1,5 @@
+// currently not in use
+
 package RoomieRoster.UI.RecyclerViews;
 
 public class SingleChore {

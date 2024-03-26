@@ -40,4 +40,11 @@ public class Chore {
 
         return result;
     }
+
+    public String getChoreTitle() { return name; }
+    public String getAssignedTo() { return assigned_to; }
+
+    public String getChoreID() { return choreID; }
+
+    public String getChoreHouse() { return house; }
 }
