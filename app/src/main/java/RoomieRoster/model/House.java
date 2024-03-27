@@ -34,6 +34,7 @@ public class House {
         result.put("state", this.state);
         result.put("zipcode", this.zipcode);
         result.put("users", this.users);
+        result.put("chores", this.chores);
         //result.put("code", this.code);
 
 

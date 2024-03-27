@@ -27,10 +27,6 @@ public class HouseViewModel extends AndroidViewModel {
         db_FirebaseRepo = new FirebaseRepository();
     }
 
-    public @NonNull DatabaseReference getHouse(String houseCode) {
-        return db_FirebaseRepo.getHouse(houseCode);
-    }
-
     public void addUserToHouse(String user_id, String houseCode) {
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("users/" + user_id, true);
@@ -39,7 +35,4 @@ public class HouseViewModel extends AndroidViewModel {
 
     public void insert(House house) { db_FirebaseRepo.insertHouse(house); }
 
-    public void removeUser(String user_id){
-
-    }
 }

@@ -1,6 +1,8 @@
 package RoomieRoster.model.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -56,12 +58,28 @@ public class UserViewModel extends AndroidViewModel{
         db_FB.getUser(user_id).updateChildren(childUpdates);
     }
 
-    public void updateName(){
+    /*
 
-    }
+        Returns the house associated with the userId
+        *could return LiveData if we wanted it to*
+     */
+    public LiveData<String> getUserHouse(String userId) {
+        MutableLiveData<String> houseLiveData = new MutableLiveData<>();
+        FirebaseRepository.OnUserHouseCallback callbackStructure = new FirebaseRepository.OnUserHouseCallback() {
+            @Override
+            public void onUserHouseRetrieved(String house) {
+                houseLiveData.setValue(house);
+            }
 
-    public void updateEmail(){
+            @Override
+            public void onError(String errorMessage) {
+                Log.e("UserViewModel", ": " + errorMessage);
+            }
+        };
 
+        db_FB.getUserHouse(userId, callbackStructure);
+
+        return houseLiveData;
     }
 
     public void deleteAccount(String user_id){

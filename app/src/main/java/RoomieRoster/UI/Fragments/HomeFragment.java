@@ -18,6 +18,7 @@ import com.RoomieRoster.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import RoomieRoster.UI.Activities.ChoresActivity;
 import RoomieRoster.UI.Activities.CreateHouseActivity;
 import RoomieRoster.UI.Activities.JoinHouseActivity;
 import RoomieRoster.UI.Activities.LoginActivity;
@@ -30,6 +31,8 @@ public class HomeFragment extends Fragment {
     Button mDeleteButton;
     private UserViewModel mUserViewModel;
     private HouseViewModel mHouseViewModel;
+
+    Button mChoresButton;
 
 
     @Override
@@ -50,12 +53,13 @@ public class HomeFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_home, container, false);
 
         mDeleteButton = v.findViewById(R.id.btn_delete);
+        mChoresButton = v.findViewById(R.id.btn_chores);
 
         if (mDeleteButton != null) {
             mDeleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.d(TAG, "HomeFragment: Join House Button Pressed");
+                    Log.d(TAG, "HomeFragment: Delete Account Button Pressed");
 
                     // Delete current user account in authentication
                     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -64,6 +68,19 @@ public class HomeFragment extends Fragment {
                     mUserViewModel.deleteAccount(mUserViewModel.getCurrentUser().getValue());
 
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
+            });
+        }
+
+        if (mChoresButton != null) {
+            mChoresButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d(TAG, "HomeFragment: Chores Button Pressed");
+
+                    Intent intent = new Intent(getActivity(), ChoresActivity.class);
                     startActivity(intent);
                     getActivity().finish();
                 }
