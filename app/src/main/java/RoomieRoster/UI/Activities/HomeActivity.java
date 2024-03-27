@@ -1,5 +1,10 @@
 package RoomieRoster.UI.Activities;
 
+import static androidx.core.content.ContextCompat.startForegroundService;
+
+import android.app.ActivityManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +15,7 @@ import com.RoomieRoster.R;
 
 import RoomieRoster.UI.Fragments.HomeFragment;
 import RoomieRoster.UI.Fragments.HouseOptionFragment;
+import RoomieRoster.model.LocationService;
 
 /*
     THIS CLASS TO BE UPDATED
@@ -24,6 +30,10 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_container);
         Log.d(TAG, "HomeActivity: onCreate()");
+
+        Context context = getApplicationContext();
+        Intent background_location = new Intent(context, LocationService.class);
+        startForegroundService(background_location);
 
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
@@ -65,5 +75,16 @@ public class HomeActivity extends AppCompatActivity {
     public void onDestroy(){
         super.onDestroy();
         Log.d(TAG, "HomeActivity: onDestroy() called");
+    }
+
+
+    public boolean foregroundServiceRunning(){
+        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for(ActivityManager.RunningServiceInfo service: activityManager.getRunningServices(Integer.MAX_VALUE)) {
+            if(LocationService.class.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

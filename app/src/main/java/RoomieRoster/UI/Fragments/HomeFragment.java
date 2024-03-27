@@ -1,7 +1,10 @@
 package RoomieRoster.UI.Fragments;
 
+import static androidx.core.content.ContextCompat.startForegroundService;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
@@ -21,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import RoomieRoster.UI.Activities.CreateHouseActivity;
 import RoomieRoster.UI.Activities.JoinHouseActivity;
 import RoomieRoster.UI.Activities.LoginActivity;
+import RoomieRoster.model.LocationService;
 import RoomieRoster.model.viewmodel.HouseViewModel;
 import RoomieRoster.model.viewmodel.UserViewModel;
 
@@ -40,6 +45,8 @@ public class HomeFragment extends Fragment {
         mUserViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(UserViewModel.class);
         mUserViewModel.setCurrentUser();
         Log.d(TAG, "HomeFragment: onCreate()");
+
+
     }
 
     @Override
