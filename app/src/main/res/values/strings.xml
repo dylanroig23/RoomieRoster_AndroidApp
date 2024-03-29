@@ -29,4 +29,6 @@
     <string name="NewHouse_HouseCodeTxt">House Code: </string>
     <string name="NewHouse_Code">Placeholder</string>
     <string name="Home_Delete">Delete Account</string>
+    <string name="channel_description">Channel for Location Service</string>
+    <string name="channel_name">Location Service Channel</string>
 </resources>

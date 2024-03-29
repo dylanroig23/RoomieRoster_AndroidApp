@@ -34,7 +34,7 @@ import RoomieRoster.model.LocationService;
 public class HomeActivity extends AppCompatActivity {
 
     final String TAG = "HomeActivity";
-    private static final int LOCATION_PERMISSION_REQUEST_CODE = 123;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +45,7 @@ public class HomeActivity extends AppCompatActivity {
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
 
+
         if (fragment == null) {
             Log.d(TAG, "HomeActivity: Posting Fragment");
             fragment = new HomeFragment();
@@ -54,37 +55,8 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    private void startLocationService(){
-        Context context = getApplicationContext();
-        Intent background_location = new Intent(context, LocationService.class);
-        startForegroundService(background_location);
-    }
-    @RequiresApi(api = Build.VERSION_CODES.Q)
-    private void checkAndRequestPermissions() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_BACKGROUND_LOCATION},
-                    LOCATION_PERMISSION_REQUEST_CODE);
-        } else {
-            startLocationService();
-        }
-    }
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED &&
-                    grantResults[1] == PackageManager.PERMISSION_GRANTED) {
 
-                startLocationService();
-            } else {
-                // Handle permission denied
-                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
     @Override
     public void onStart(){
         super.onStart();
