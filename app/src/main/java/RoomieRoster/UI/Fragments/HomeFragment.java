@@ -22,6 +22,7 @@ import RoomieRoster.UI.Activities.ChoresActivity;
 import RoomieRoster.UI.Activities.CreateHouseActivity;
 import RoomieRoster.UI.Activities.JoinHouseActivity;
 import RoomieRoster.UI.Activities.LoginActivity;
+import RoomieRoster.UI.Activities.MapsActivity;
 import RoomieRoster.model.viewmodel.HouseViewModel;
 import RoomieRoster.model.viewmodel.UserViewModel;
 
@@ -33,6 +34,7 @@ public class HomeFragment extends Fragment {
     private HouseViewModel mHouseViewModel;
 
     Button mChoresButton;
+    Button mMapButton;
 
 
     @Override
@@ -54,6 +56,7 @@ public class HomeFragment extends Fragment {
 
         mDeleteButton = v.findViewById(R.id.btn_delete);
         mChoresButton = v.findViewById(R.id.btn_chores);
+        mMapButton = v.findViewById(R.id.btn_map);
 
         if (mDeleteButton != null) {
             mDeleteButton.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +84,19 @@ public class HomeFragment extends Fragment {
                     Log.d(TAG, "HomeFragment: Chores Button Pressed");
 
                     Intent intent = new Intent(getActivity(), ChoresActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
+            });
+        }
+
+        if (mMapButton != null) {
+            mMapButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d(TAG, "HomeFragment: Chores Button Pressed");
+
+                    Intent intent = new Intent(getActivity(), MapsActivity.class);
                     startActivity(intent);
                     getActivity().finish();
                 }
