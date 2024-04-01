@@ -12,7 +12,16 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="612dp"
-        tools:context="RoomieRoster.UI.Activities.MapsActivity" />
+        tools:context="RoomieRoster.UI.Activities.MapsActivity"
+        map:cameraTilt="30"
+        map:cameraZoom="13"
+        map:mapType="normal"
+        map:uiCompass="true"
+        map:uiRotateGestures="true"
+        map:uiScrollGestures="true"
+        map:uiTiltGestures="true"
+        map:uiZoomControls="true"
+        map:uiZoomGestures="true"/>
 
     <LinearLayout
         android:layout_width="match_parent"

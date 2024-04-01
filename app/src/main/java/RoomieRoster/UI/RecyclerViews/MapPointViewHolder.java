@@ -29,7 +29,7 @@ public class MapPointViewHolder extends RecyclerView.ViewHolder {
                         mapPointsViewInterface.onCompleteMapClick(position);
                     }
                 }
-
+                Log.d("MapPointViewHolder", "MapPointViewHolder: Roommate Name Pressed");
             }
         });
     }

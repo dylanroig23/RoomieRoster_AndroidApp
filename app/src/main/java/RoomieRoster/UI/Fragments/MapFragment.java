@@ -77,12 +77,12 @@ public class MapFragment extends Fragment implements MapPointsViewInterface {
         recyclerViewRoommates = new ArrayList<>();
         roommateLocations = new HashMap<>();
 
-        // PLACE HOLDER ROOMMATE DUMMY DATA
+        // Create map points from all roommates
+        // Get all roommates' names, latitude and longitude
         recyclerViewRoommates.add(new MapPoint("Dwight", 40, -83));
         recyclerViewRoommates.add(new MapPoint("Jim", 50, -90));
         recyclerViewRoommates.add(new MapPoint("Pam", 42, -85));
 
-        Log.d(TAG, TAG + ": make dummy data");
 
         MapPointAdapter mapPointAdapter = new MapPointAdapter(recyclerViewRoommates, MapFragment.this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
@@ -157,6 +157,7 @@ public class MapFragment extends Fragment implements MapPointsViewInterface {
     }
 
 
+    @Override
     public void onCompleteMapClick(int position) {
         MapPoint currentPoint = recyclerViewRoommates.get(position);
         LatLng pos = roommateLocations.get(currentPoint);
