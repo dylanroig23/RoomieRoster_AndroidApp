@@ -4,11 +4,13 @@ import static android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION;
 import static android.os.Build.ID;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -25,6 +27,9 @@ import androidx.core.app.ServiceCompat;
 import androidx.core.content.ContextCompat;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
+import RoomieRoster.model.FirebaseRepository;
 
 import com.RoomieRoster.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -37,6 +42,8 @@ import com.google.android.gms.location.Priority;
 import java.time.Duration;
 
 import RoomieRoster.UI.Activities.HomeActivity;
+import RoomieRoster.model.viewmodel.ChoreViewModel;
+import RoomieRoster.model.viewmodel.HouseViewModel;
 
 public class LocationService extends Service {
 
@@ -50,12 +57,18 @@ public class LocationService extends Service {
     private Handler handler;
     private Runnable runnable;
 
+    HouseViewModel mHouseViewModel;
+    private FirebaseRepository db_FB;
+    private String currentHouse;
+
 
     @Override
     public void onCreate() {
         super.onCreate();
+        db_FB = new FirebaseRepository();
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
+        //Context activityContext = getApplicationContext();
+        //mHouseViewModel = new ViewModelProvider((ViewModelStoreOwner) activityContext).get(HouseViewModel.class);
         createLocationRequest();
 
         locationCallback = new LocationCallback() {
@@ -64,7 +77,19 @@ public class LocationService extends Service {
                 super.onLocationResult(locationResult);
                 Location location = locationResult.getLastLocation();
                 if (location != null) {
+                    FirebaseRepository.OnUserHouseCallback callbackStructure = new FirebaseRepository.OnUserHouseCallback(){
+                        @Override
+                        public void onUserHouseRetrieved(String house) {
+                            currentHouse = house;
+                        }
 
+                        @Override
+                        public void onError(String errorMessage) {
+                            Log.e("UserViewModel", ": " + errorMessage);
+                        }
+                    };
+                    db_FB.getUserHouse(db_FB.getFB_Auth_ID(), callbackStructure);
+                    db_FB.insertLocation(currentHouse, location.getLatitude(), location.getLongitude());
                     Log.d(TAG, "Latitude: " + location.getLatitude() + ", Longitude: " + location.getLongitude());
                 }
             }
@@ -129,6 +154,7 @@ public class LocationService extends Service {
     private void stopLocationUpdates() {
         fusedLocationClient.removeLocationUpdates(locationCallback);
     }
+
 
 
 }

@@ -4,6 +4,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,10 +22,12 @@ import java.util.UUID;
 public class FirebaseRepository {
 
     private final DatabaseReference database;
+    private final FirebaseAuth auth_FB;
 
 
     public FirebaseRepository(){
         database = FirebaseDatabase.getInstance().getReference();
+        auth_FB = FirebaseAuth.getInstance();
     }
 
     public void insertUser(User user){
@@ -184,5 +188,27 @@ public class FirebaseRepository {
         //remove from the "chores" map
         database.child("chores").child(choreId).removeValue();
     }
+
+
+    public void insertLocation(String houseID, Double latitude, Double longitude){
+        FirebaseUser user = auth_FB.getCurrentUser();
+        String userID = user.getUid();
+        String name = user.getDisplayName();
+        Map<String, String> locationValues = new HashMap<>();
+        locationValues.put("name", name);
+        locationValues.put("latitude", latitude.toString() );
+        locationValues.put("longitude", longitude.toString());
+
+        if(houseID != null){
+            database.child("houses").child(houseID).child("users").child(userID).setValue(locationValues);
+        }
+    }
+
+    public String getFB_Auth_ID(){
+        FirebaseUser user = auth_FB.getCurrentUser();
+        return user.getUid();
+    }
+
+
 
 }
