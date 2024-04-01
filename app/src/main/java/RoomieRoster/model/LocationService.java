@@ -64,6 +64,7 @@ public class LocationService extends Service {
                 super.onLocationResult(locationResult);
                 Location location = locationResult.getLastLocation();
                 if (location != null) {
+
                     Log.d(TAG, "Latitude: " + location.getLatitude() + ", Longitude: " + location.getLongitude());
                 }
             }
@@ -97,10 +98,10 @@ public class LocationService extends Service {
     }
 
     private void createLocationRequest() {
-        locationRequest = new LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 1000)
+        locationRequest = new LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 30000)
                 .setWaitForAccurateLocation(false)
-                .setMinUpdateIntervalMillis(1000)
-                .setMaxUpdateDelayMillis(1000)
+                .setMinUpdateIntervalMillis(30000)
+                .setMaxUpdateDelayMillis(30000)
                 .build();
     }
 
