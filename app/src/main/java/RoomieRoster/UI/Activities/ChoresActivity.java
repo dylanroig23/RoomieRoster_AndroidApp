@@ -9,23 +9,22 @@ import androidx.fragment.app.FragmentManager;
 
 import com.RoomieRoster.R;
 
-import RoomieRoster.UI.Fragments.JoinHouseFragment;
+import RoomieRoster.UI.Fragments.ChoresFragment;
 
-
-public class NewHouseActivity extends AppCompatActivity {
-    final String TAG = "NewHouseActivity";
+public class ChoresActivity extends AppCompatActivity {
+    final String TAG = "ChoresActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_container);
-        Log.d(TAG, "NewHouseActivity: onCreate()");
+        Log.d(TAG, TAG + ": onCreate()");
 
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
 
         if (fragment == null) {
-            Log.d(TAG, "NewHouseActivity: Posting Fragment");
-            fragment = new JoinHouseFragment();
+            Log.d(TAG, TAG + ": Posting Fragment");
+            fragment = new ChoresFragment();
             fm.beginTransaction()
                     .add(R.id.fragment_container, fragment)
                     .commit();
@@ -35,31 +34,30 @@ public class NewHouseActivity extends AppCompatActivity {
     @Override
     public void onStart(){
         super.onStart();
-        Log.d("NewHouseActivity", "onStart() called");
+        Log.d(TAG, TAG + ": onStart() called");
     }
 
     @Override
     public void onResume(){
         super.onResume();
-        Log.d("NewHouseActivity", "onResume() called");
+        Log.d(TAG, TAG + ": onResume() called");
     }
 
     @Override
     public void onPause(){
         super.onPause();
-        Log.d("NewHouseActivity", "onPause() called");
+        Log.d(TAG, TAG + ": onPause() called");
     }
 
     @Override
     public void onStop(){
         super.onStop();
-        Log.d("NewHouseActivity", "onStop() called");
+        Log.d(TAG, TAG + ": onStop() called");
     }
 
     @Override
     public void onDestroy(){
         super.onDestroy();
-        Log.d("NewHouseActivity", "onDestroy() called");
+        Log.d(TAG, TAG + ": onDestroy() called");
     }
 }
-
