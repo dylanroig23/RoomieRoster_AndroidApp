@@ -122,6 +122,12 @@ public class HomeFragment extends Fragment {
         }
         if (ContextCompat.checkSelfPermission(requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // Request foreground location permission
+            foregroundPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
+        } else {
+            // Foreground location permission is already granted, request background permission
+            requestBackgroundLocationPermission();
+        }
 
         if (mChoresButton != null) {
             mChoresButton.setOnClickListener(new View.OnClickListener() {
@@ -136,12 +142,6 @@ public class HomeFragment extends Fragment {
             });
         }
 
-            // Request foreground location permission
-            foregroundPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
-        } else {
-            // Foreground location permission is already granted, request background permission
-            requestBackgroundLocationPermission();
-        }
         return v;
     }
 
