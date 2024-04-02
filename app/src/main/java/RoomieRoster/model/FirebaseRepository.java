@@ -3,7 +3,10 @@ package RoomieRoster.model;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,10 +23,12 @@ import java.util.UUID;
 public class FirebaseRepository {
 
     private final DatabaseReference database;
+    private final FirebaseAuth auth_FB;
 
 
     public FirebaseRepository(){
         database = FirebaseDatabase.getInstance().getReference();
+        auth_FB = FirebaseAuth.getInstance();
     }
 
     public void insertUser(User user){
@@ -82,6 +87,11 @@ public class FirebaseRepository {
         void onError(String errorMessage);
     }
 
+    public interface OnRoommatesHouseCallback {
+        void OnRoommatesHouseRetrieved(ArrayList<MapPoint> roommateData);
+        void onError(String errorMessage);
+    }
+
     public void getUserHouse(String userId, OnUserHouseCallback callback) {
         DatabaseReference userRef = database.child("users").child(userId);
         Log.i("FirebaseRepository", "FirebaseRespository: " + userRef.toString());
@@ -103,7 +113,39 @@ public class FirebaseRepository {
         });
     }
 
+    public void geHouseRoommates(String houseId, OnRoommatesHouseCallback callback) {
+        DatabaseReference houseRef = database.child("houses").child(houseId).child("users");
+        houseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<MapPoint> userLocations = new ArrayList<>();
+                if(snapshot.exists()){
+                    for(DataSnapshot houseSnap : snapshot.getChildren()){
+                        if (houseSnap.getChildrenCount() == 0) {
+                            continue;
+                        }
+                        String name = houseSnap.child("name").getValue(String.class);
+                        String latitudeS = houseSnap.child("latitude").getValue(String.class);
+                        String longitudeS = houseSnap.child("longitude").getValue(String.class);
+                        float latitudeF = Float.parseFloat(latitudeS);
+                        float longitudeF = Float.parseFloat(longitudeS);
+                        MapPoint point = new MapPoint(name, latitudeF, longitudeF);
+                        userLocations.add(point);
+                        Log.e("FirebaseRepository", ": MapPoint for " + name + "made");
+                    }
+                    callback.OnRoommatesHouseRetrieved(userLocations);
+                }
+                else{
+                    callback.onError("Error with mapPoints");
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 
     /*
         insertChore() inserts the chore into the "chores" map, the "houses/chores" map, and
@@ -184,5 +226,27 @@ public class FirebaseRepository {
         //remove from the "chores" map
         database.child("chores").child(choreId).removeValue();
     }
+
+
+    public void insertLocation(String houseID, Double latitude, Double longitude){
+        FirebaseUser user = auth_FB.getCurrentUser();
+        String userID = user.getUid();
+        String name = user.getDisplayName();
+        Map<String, String> locationValues = new HashMap<>();
+        locationValues.put("name", name);
+        locationValues.put("latitude", latitude.toString() );
+        locationValues.put("longitude", longitude.toString());
+
+        if(houseID != null){
+            database.child("houses").child(houseID).child("users").child(userID).setValue(locationValues);
+        }
+    }
+
+    public String getFB_Auth_ID(){
+        FirebaseUser user = auth_FB.getCurrentUser();
+        return user.getUid();
+    }
+
+
 
 }

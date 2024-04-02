@@ -12,7 +12,7 @@
     <string name="Register_Email">Email</string>
     <string name="Register_Phone">Phone</string>
     <string name="Register_Password">Password</string>
-    <string name="Home_InProgress">Home Page in Progress!</string>
+    <string name="Home_InProgress">Home Page!</string>
     <string name="HouseOption_New">New House</string>
     <string name="House_Option_Join">Join House</string>
     <string name="JoinHouse_Joining">Joining a House!</string>
@@ -30,6 +30,7 @@
     <string name="NewHouse_Code">Placeholder</string>
     <string name="Home_Delete">Delete Account</string>
     <string name="Home_Chores">Chores</string>
+    <string name="Home_FindRoommates">Find Roommates</string>
     <string name="Chore_View_Complete">Complete</string>
     <string name="Chore_View_Assignment">"Assignment: "</string>
     <string name="Chore_View_None">None</string>
@@ -41,4 +42,9 @@
     <string name="NewChore_AssignedTo">Who is the chore assigned to?</string>
     <string name="NewChore_Add">Add Chore</string>
     <string name="NewChore_Back">Go Back</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="channel_description">Channel for Location Service</string>
+    <string name="channel_name">Location Service Channel</string>
+    <string name="Roommate_MapView">Roommate</string>
+    <string name="Roommmate_Zoom">Zoom In!</string>
 </resources>

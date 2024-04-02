@@ -1,15 +1,30 @@
 package RoomieRoster.UI.Activities;
 
+import static androidx.core.content.ContextCompat.startForegroundService;
+
+import android.app.ActivityManager;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.Manifest;
 import com.RoomieRoster.R;
 
 import RoomieRoster.UI.Fragments.HomeFragment;
 import RoomieRoster.UI.Fragments.HouseOptionFragment;
+import RoomieRoster.model.LocationService;
 
 /*
     THIS CLASS TO BE UPDATED
@@ -19,14 +34,17 @@ import RoomieRoster.UI.Fragments.HouseOptionFragment;
 public class HomeActivity extends AppCompatActivity {
 
     final String TAG = "HomeActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_container);
         Log.d(TAG, "HomeActivity: onCreate()");
 
+
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
+
 
         if (fragment == null) {
             Log.d(TAG, "HomeActivity: Posting Fragment");
@@ -36,6 +54,8 @@ public class HomeActivity extends AppCompatActivity {
                     .commit();
         }
     }
+
+
 
     @Override
     public void onStart(){
@@ -65,5 +85,16 @@ public class HomeActivity extends AppCompatActivity {
     public void onDestroy(){
         super.onDestroy();
         Log.d(TAG, "HomeActivity: onDestroy() called");
+    }
+
+
+    public boolean foregroundServiceRunning(){
+        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for(ActivityManager.RunningServiceInfo service: activityManager.getRunningServices(Integer.MAX_VALUE)) {
+            if(LocationService.class.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

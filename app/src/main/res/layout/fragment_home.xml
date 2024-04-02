@@ -18,13 +18,24 @@
         android:textSize="40sp"
         android:textStyle="bold"
         android:textAlignment="center"
-        android:paddingBottom="150dp"/>
+        android:paddingBottom="25dp"/>
+
+<!--    <Button-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/Home_Delete"-->
+<!--        android:id="@+id/btn_delete"-->
+<!--        android:textColor="#36454F"-->
+<!--        android:textSize="30sp"-->
+<!--        android:background="@drawable/rounded_edittext_bg"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:layout_marginTop="10dp"/>-->
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Home_Delete"
-        android:id="@+id/btn_delete"
+        android:text="@string/Home_Chores"
+        android:id="@+id/btn_chores"
         android:textColor="#36454F"
         android:textSize="30sp"
         android:background="@drawable/rounded_edittext_bg"
@@ -34,8 +45,8 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Home_Chores"
-        android:id="@+id/btn_chores"
+        android:text="@string/Home_FindRoommates"
+        android:id="@+id/btn_map"
         android:textColor="#36454F"
         android:textSize="30sp"
         android:background="@drawable/rounded_edittext_bg"

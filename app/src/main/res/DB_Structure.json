@@ -24,7 +24,11 @@
       "state" : "OH",
       "zipcode" : "43201",
       "users": {
-        "user1" : true
+        "user1" : {
+          "name": "Bob",
+          "location" : "5720r59720r,502740q702"
+          }
+        }
       },
       "events" : {
         "event1" : true
