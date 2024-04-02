@@ -63,6 +63,7 @@ public class HomeFragment extends Fragment {
         mUserViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(UserViewModel.class);
         mUserViewModel.setCurrentUser();
         Log.d(TAG, "HomeFragment: onCreate()");
+        int currentApiVersion = android.os.Build.VERSION.SDK_INT;
         // Initialize ActivityResultLauncher for foreground location permission
         foregroundPermissionLauncher = registerForActivityResult(
                 new ActivityResultContracts.RequestPermission(),
@@ -70,7 +71,11 @@ public class HomeFragment extends Fragment {
                     if (isGranted) {
                         // Foreground permission is granted, request background permission
                         Log.d(TAG, "Foreground PERMISSIONS SUCCESS");
-                        requestBackgroundLocationPermission();
+                        if (currentApiVersion >= android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                            requestBackgroundLocationPermission();
+                        } else{
+                            startLocationService();
+                        }
                     } else {
                         // Foreground permission is denied
                         Log.d(TAG, "Foreground PERMISSIONS NOT SUCCESS");
@@ -128,8 +133,9 @@ public class HomeFragment extends Fragment {
             // Request foreground location permission
             foregroundPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
         } else {
+            startLocationService();
             // Foreground location permission is already granted, request background permission
-            requestBackgroundLocationPermission();
+            //requestBackgroundLocationPermission();
         }
 
         if (mChoresButton != null) {
