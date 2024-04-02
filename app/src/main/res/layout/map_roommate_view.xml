@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
     android:layout_marginStart="10dp"
-    android:layout_marginEnd="100dp"
+    android:layout_marginEnd="10dp"
+    android:id="@+id/roomateContainer"
     android:background="@drawable/chore_container"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -17,7 +18,20 @@
         android:textColor="@color/black"
         android:layout_marginStart="10dp"
         android:textStyle="bold|italic"
-        tools:text="Roommate Name" />
+        tools:text="@string/Roommate_MapView"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"/>
 
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_zoomIn"
+        android:text = "@string/Roommmate_Zoom"
+        android:background="@drawable/continue_button"
+        android:textSize = "11sp"
+        android:layout_marginStart="100dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="8dp"/>
 </RelativeLayout>

@@ -12,14 +12,15 @@ import com.RoomieRoster.R;
 
 public class MapPointViewHolder extends RecyclerView.ViewHolder {
 
+    Button mButtonZoomIn;
     TextView mTextViewRoommateName;
 
     public MapPointViewHolder(@NonNull View mapPointView, MapPointsViewInterface mapPointsViewInterface) {
         super(mapPointView);
+        mButtonZoomIn = mapPointView.findViewById(R.id.btn_zoomIn);
         mTextViewRoommateName = mapPointView.findViewById(R.id.roommateName);
 
-
-        mTextViewRoommateName.setOnClickListener(new View.OnClickListener() {
+        mButtonZoomIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

@@ -57,6 +57,7 @@ public class MapFragment extends Fragment implements MapPointsViewInterface {
 
     HouseViewModel mHouseViewModel;
     UserViewModel mUserViewModel;
+    MapPointAdapter mMapPointAdapter;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -89,7 +90,7 @@ public class MapFragment extends Fragment implements MapPointsViewInterface {
                         recyclerViewRoommates.clear();
                         for(MapPoint point : mapPoints){
                             recyclerViewRoommates.add(point);
-                            Log.e("MapFragment", ": Pointed added to list");
+                            Log.i("MapFragment", ": Pointed added to list");
                         }
 
                         for(MapPoint m : recyclerViewRoommates){
@@ -99,10 +100,10 @@ public class MapFragment extends Fragment implements MapPointsViewInterface {
 
                             mMap.addMarker(nextMarker);
                             roommateLocations.put(m, new LatLng(latitude, longitude));
-                            Log.e("MapFragment", ": MapPoint Made");
+                            Log.i("MapFragment", ": MapPoint Made");
                         }
-                        MapPointAdapter mapPointAdapter = new MapPointAdapter(recyclerViewRoommates, MapFragment.this);
-                        recyclerView.setAdapter(mapPointAdapter);
+                        mMapPointAdapter = new MapPointAdapter(getActivity().getApplicationContext(), recyclerViewRoommates, MapFragment.this);
+                        recyclerView.setAdapter(mMapPointAdapter);
                     }
                 });
             }
@@ -177,7 +178,7 @@ public class MapFragment extends Fragment implements MapPointsViewInterface {
         MapPoint currentPoint = recyclerViewRoommates.get(position);
         LatLng pos = roommateLocations.get(currentPoint);
         //mMap.moveCamera(CameraUpdateFactory.zoomIn(roommateLocations.get(m).getPosition()));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 20), 200, null);
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 7), 1000, null);
         Log.i(TAG, TAG + " clicked");
 
     }

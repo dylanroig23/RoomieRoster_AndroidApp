@@ -45,4 +45,6 @@
     <string name="title_activity_maps">MapsActivity</string>
     <string name="channel_description">Channel for Location Service</string>
     <string name="channel_name">Location Service Channel</string>
+    <string name="Roommate_MapView">Roommate</string>
+    <string name="Roommmate_Zoom">Zoom In!</string>
 </resources>
