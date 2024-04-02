@@ -3,7 +3,9 @@ package RoomieRoster.model;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -82,6 +84,11 @@ public class FirebaseRepository {
         void onError(String errorMessage);
     }
 
+    public interface OnRoommatesHouseCallback {
+        void OnRoommatesHouseRetrieved(ArrayList<MapPoint> roommateData);
+        void onError(String errorMessage);
+    }
+
     public void getUserHouse(String userId, OnUserHouseCallback callback) {
         DatabaseReference userRef = database.child("users").child(userId);
         Log.i("FirebaseRepository", "FirebaseRespository: " + userRef.toString());
@@ -103,7 +110,36 @@ public class FirebaseRepository {
         });
     }
 
+    public void geHouseRoommates(String houseId, OnRoommatesHouseCallback callback) {
+        DatabaseReference houseRef = database.child("houses").child(houseId).child("users");
+        houseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<MapPoint> userLocations = new ArrayList<>();
+                if(snapshot.exists()){
+                    for(DataSnapshot houseSnap : snapshot.getChildren()){
+                        String name = houseSnap.child("name").getValue(String.class);
+                        String latitudeS = houseSnap.child("latitude").getValue(String.class);
+                        String longitudeS = houseSnap.child("longitude").getValue(String.class);
+                        float latitudeF = Float.parseFloat(latitudeS);
+                        float longitudeF = Float.parseFloat(longitudeS);
+                        MapPoint point = new MapPoint(name, latitudeF, longitudeF);
+                        userLocations.add(point);
+                        Log.e("FirebaseRepository", ": MapPoint for " + name + "made");
+                    }
+                    callback.OnRoommatesHouseRetrieved(userLocations);
+                }
+                else{
+                    callback.onError("Error with mapPoints");
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 
     /*
         insertChore() inserts the chore into the "chores" map, the "houses/chores" map, and

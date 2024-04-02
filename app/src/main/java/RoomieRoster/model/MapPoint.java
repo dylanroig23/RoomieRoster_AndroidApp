@@ -10,7 +10,7 @@ public class MapPoint {
     private float longitude;
 
 
-    public MapPoint(String name, int latitude, int longitude) {
+    public MapPoint(String name, float latitude, float longitude) {
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;

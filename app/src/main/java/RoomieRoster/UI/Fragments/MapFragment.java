@@ -43,6 +43,7 @@ import RoomieRoster.UI.RecyclerViews.MapPointsViewInterface;
 import RoomieRoster.model.Chore;
 import RoomieRoster.model.MapPoint;
 import RoomieRoster.model.viewmodel.ChoreViewModel;
+import RoomieRoster.model.viewmodel.HouseViewModel;
 import RoomieRoster.model.viewmodel.UserViewModel;
 
 public class MapFragment extends Fragment implements MapPointsViewInterface {
@@ -54,11 +55,15 @@ public class MapFragment extends Fragment implements MapPointsViewInterface {
     List<MapPoint> recyclerViewRoommates;
     Map<MapPoint, LatLng> roommateLocations;
 
+    HouseViewModel mHouseViewModel;
+    UserViewModel mUserViewModel;
+
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         Activity activity = requireActivity();
-
+        mHouseViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(HouseViewModel.class);
+        mUserViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(UserViewModel.class);
     }
 
     @Override
@@ -67,46 +72,56 @@ public class MapFragment extends Fragment implements MapPointsViewInterface {
         Log.d(TAG, TAG + ": onCreateView()");
         v = inflater.inflate(R.layout.activity_maps, container, false);
 
-        // Initialize map fragment
-        SupportMapFragment supportMapFragment=(SupportMapFragment)
-                getChildFragmentManager().findFragmentById(R.id.map);
-
         recyclerView = v.findViewById(R.id.maps_recyclerview);
         mHomeButton = v.findViewById(R.id.btn_mapHome);
 
         recyclerViewRoommates = new ArrayList<>();
         roommateLocations = new HashMap<>();
+        String uid = mUserViewModel.getCurrentUser().getValue();
+        mUserViewModel.getUserHouse(uid).observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String house) {
+                Log.e("MapFragment: onChanged(string house)", ": OnChanged called");
+                mHouseViewModel.getRoommateData(house).observe(getViewLifecycleOwner(), new Observer<ArrayList<MapPoint>>() {
+                    @Override
+                    public void onChanged(ArrayList<MapPoint> mapPoints) {
+                        Log.e("MapFragment: onChanged(mapPoints)", ": OnChanged called");
+                        recyclerViewRoommates.clear();
+                        for(MapPoint point : mapPoints){
+                            recyclerViewRoommates.add(point);
+                            Log.e("MapFragment", ": Pointed added to list");
+                        }
 
-        // Create map points from all roommates
-        // Get all roommates' names, latitude and longitude
-        recyclerViewRoommates.add(new MapPoint("Dwight", 40, -83));
-        recyclerViewRoommates.add(new MapPoint("Jim", 50, -90));
-        recyclerViewRoommates.add(new MapPoint("Pam", 42, -85));
+                        for(MapPoint m : recyclerViewRoommates){
+                            float latitude = m.getLat();
+                            float longitude = m.getLong();
+                            MarkerOptions nextMarker= new MarkerOptions().position(new LatLng(latitude, longitude));
 
+                            mMap.addMarker(nextMarker);
+                            roommateLocations.put(m, new LatLng(latitude, longitude));
+                            Log.e("MapFragment", ": MapPoint Made");
+                        }
+                        MapPointAdapter mapPointAdapter = new MapPointAdapter(recyclerViewRoommates, MapFragment.this);
+                        recyclerView.setAdapter(mapPointAdapter);
+                    }
+                });
+            }
+        });
 
-        MapPointAdapter mapPointAdapter = new MapPointAdapter(recyclerViewRoommates, MapFragment.this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mapPointAdapter);
+
+
+        // Initialize map fragment
+        SupportMapFragment supportMapFragment=(SupportMapFragment)
+                getChildFragmentManager().findFragmentById(R.id.map);
 
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
                 mMap = googleMap;
 
-                // TODO: On click of a roommate in the recycler will zoom to their marker?
-
-                // Create a marker for each roommate
-
-                for(MapPoint m : recyclerViewRoommates){
-                    float latitude = m.getLat();
-                    float longitude = m.getLong();
-                    MarkerOptions nextMarker= new MarkerOptions().position(new LatLng(latitude, longitude));
-
-                    mMap.addMarker(nextMarker);
-                    roommateLocations.put(m, new LatLng(latitude, longitude));
-                }
             }
         });
 
