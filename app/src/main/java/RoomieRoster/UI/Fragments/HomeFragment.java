@@ -101,28 +101,28 @@ public class HomeFragment extends Fragment {
 
         v = inflater.inflate(R.layout.fragment_home, container, false);
 
-        mDeleteButton = v.findViewById(R.id.btn_delete);
+//        mDeleteButton = v.findViewById(R.id.btn_delete);
         mChoresButton = v.findViewById(R.id.btn_chores);
         mMapButton = v.findViewById(R.id.btn_map);
 
-        if (mDeleteButton != null) {
-            mDeleteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.d(TAG, "HomeFragment: Delete Account Button Pressed");
-
-                    // Delete current user account in authentication
-                    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    user.delete();
-                    // Delete user data from real time database
-                    mUserViewModel.deleteAccount(mUserViewModel.getCurrentUser().getValue());
-
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(intent);
-                    getActivity().finish();
-                }
-            });
-        }
+//        if (mDeleteButton != null) {
+//            mDeleteButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Log.d(TAG, "HomeFragment: Delete Account Button Pressed");
+//
+//                    // Delete current user account in authentication
+//                    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//                    user.delete();
+//                    // Delete user data from real time database
+//                    mUserViewModel.deleteAccount(mUserViewModel.getCurrentUser().getValue());
+//
+//                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+//                    startActivity(intent);
+//                    getActivity().finish();
+//                }
+//            });
+//        }
         if (ContextCompat.checkSelfPermission(requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // Request foreground location permission

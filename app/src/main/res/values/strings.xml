@@ -12,7 +12,7 @@
     <string name="Register_Email">Email</string>
     <string name="Register_Phone">Phone</string>
     <string name="Register_Password">Password</string>
-    <string name="Home_InProgress">Home Page in Progress!</string>
+    <string name="Home_InProgress">Home Page!</string>
     <string name="HouseOption_New">New House</string>
     <string name="House_Option_Join">Join House</string>
     <string name="JoinHouse_Joining">Joining a House!</string>
