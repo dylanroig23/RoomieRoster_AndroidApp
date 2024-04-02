@@ -121,6 +121,9 @@ public class FirebaseRepository {
                 ArrayList<MapPoint> userLocations = new ArrayList<>();
                 if(snapshot.exists()){
                     for(DataSnapshot houseSnap : snapshot.getChildren()){
+                        if (houseSnap.getChildrenCount() == 0) {
+                            continue;
+                        }
                         String name = houseSnap.child("name").getValue(String.class);
                         String latitudeS = houseSnap.child("latitude").getValue(String.class);
                         String longitudeS = houseSnap.child("longitude").getValue(String.class);
