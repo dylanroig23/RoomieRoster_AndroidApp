@@ -115,7 +115,7 @@ public class FirebaseRepository {
 
     public void geHouseRoommates(String houseId, OnRoommatesHouseCallback callback) {
         DatabaseReference houseRef = database.child("houses").child(houseId).child("users");
-        houseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<MapPoint> userLocations = new ArrayList<>();
@@ -142,9 +142,10 @@ public class FirebaseRepository {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                callback.onError(error.getMessage());
             }
-        });
+        };
+        houseRef.addValueEventListener(postListener);
     }
 
     /*
