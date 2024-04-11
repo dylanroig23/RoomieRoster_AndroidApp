@@ -20,24 +20,23 @@
             android:layout_centerHorizontal="true"
             android:textColor="@color/white"
             android:textStyle="bold|italic"
-            tools:text="Welcome to" />
+            android:text="Welcome to" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/assign"
+            android:id="@+id/title"
             android:textSize="35dp"
             android:layout_centerHorizontal="true"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:layout_below="@id/Home_WelcomeTo"
-            tools:text="RoomieRoster!" />
+            android:text="RoomieRoster!" />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/welcomeHeader"
-        android:background="@color/design_default_color_primary_variant"
         android:id="@+id/houseHeader">
         <TextView
             android:layout_width="wrap_content"
@@ -48,13 +47,14 @@
             android:textColor="@color/white"
             android:textStyle="bold|italic"
             android:layout_centerHorizontal="true"
-            tools:text="House: " />
+            android:text="House: " />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/houseCode"
-            android:textSize="40dp"
+            android:id="@+id/Home_houseCode"
+            android:textSize="55dp"
+            android:textStyle="bold"
             android:textColor="@color/white"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/Home_Address"
