@@ -61,7 +61,7 @@ public class NewChoreFragment extends Fragment {
                     Log.d(TAG, TAG + ": Go Back Button Pressed");
                     Intent intent = new Intent(getActivity(), ChoresActivity.class);
                     startActivity(intent);
-                    getActivity().finish();
+                    if(getActivity() != null)getActivity().finish();
                 }
             });
         }
@@ -93,7 +93,7 @@ public class NewChoreFragment extends Fragment {
 
                     Intent intent = new Intent(getActivity(), ChoresActivity.class);
                     startActivity(intent);
-                    getActivity().finish();
+                    if(getActivity() != null) getActivity().finish();
                 }
             });
         }

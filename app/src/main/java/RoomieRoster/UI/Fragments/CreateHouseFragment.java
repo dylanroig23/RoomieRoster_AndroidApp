@@ -43,8 +43,9 @@ public class CreateHouseFragment extends Fragment {
     Button mCreateHouseButton;
     private HouseViewModel mHouseViewModel;
     private UserViewModel mUserViewModel;
-    private int mMinCode = 1;
-    private int mMaxCode = 1000;
+
+    int mMinCode = 1;
+    int mMaxCode = 1000;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -142,7 +143,7 @@ public class CreateHouseFragment extends Fragment {
 
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
                     startActivity(intent);
-                    getActivity().finish();
+                    if(getActivity() != null) getActivity().finish();
                 }
             });
         }

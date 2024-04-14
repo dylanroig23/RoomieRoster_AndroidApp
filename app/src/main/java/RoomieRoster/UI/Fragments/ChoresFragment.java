@@ -73,9 +73,10 @@ public class ChoresFragment extends Fragment implements ChoresViewInterface {
                             //Log.i(TAG, TAG + ": ChoreName: " + chore.name + " ChoreID: " + chore.choreID);
                             recyclerViewChores.add(chore);
                         }
-
-                        mChoreAdapter = new ChoreAdapter(getActivity().getApplicationContext(), recyclerViewChores, ChoresFragment.this);
-                        recyclerView.setAdapter(mChoreAdapter);
+                        if(getActivity() != null){
+                            mChoreAdapter = new ChoreAdapter(getActivity().getApplicationContext(), recyclerViewChores, ChoresFragment.this);
+                            recyclerView.setAdapter(mChoreAdapter);
+                        }
                     }
                 });
             }
@@ -92,7 +93,8 @@ public class ChoresFragment extends Fragment implements ChoresViewInterface {
                     Log.d(TAG, TAG + ": Home Button Clicked");
                     Intent intent = new Intent(getActivity(), HomeActivity.class);
                     startActivity(intent);
-                    getActivity().finish();
+                    if(getActivity() != null) getActivity().finish();
+
                 }
             });
         }
@@ -105,7 +107,7 @@ public class ChoresFragment extends Fragment implements ChoresViewInterface {
                     Log.d(TAG, TAG + ": New Chore Button Clicked");
                     Intent intent = new Intent(getActivity(), NewChoreActivity.class);
                     startActivity(intent);
-                    getActivity().finish();
+                    if(getActivity() != null) getActivity().finish();
                 }
             });
         }

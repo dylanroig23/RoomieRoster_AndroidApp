@@ -2,9 +2,7 @@ package RoomieRoster.UI.RecyclerViews;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,16 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.RoomieRoster.R;
 
 import java.util.List;
-import java.util.Map;
 
-import RoomieRoster.model.Chore;
 import RoomieRoster.model.MapPoint;
 
 
 public class MapPointAdapter extends RecyclerView.Adapter<MapPointViewHolder> {
 
     Context context;
-    private List<MapPoint> mapPoints;
+    private final List<MapPoint> mapPoints;
     private final MapPointsViewInterface mMapPointsViewInterface;
 
     public MapPointAdapter(Context context, List<MapPoint> mapPoints, MapPointsViewInterface mapPointsViewInterface) {

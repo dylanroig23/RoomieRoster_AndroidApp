@@ -10,7 +10,6 @@ import androidx.fragment.app.FragmentManager;
 import com.RoomieRoster.R;
 
 import RoomieRoster.UI.Fragments.CreateHouseFragment;
-import RoomieRoster.UI.Fragments.HouseOptionFragment;
 
 public class CreateHouseActivity extends AppCompatActivity {
     final String TAG = "CreateHouseActivity";

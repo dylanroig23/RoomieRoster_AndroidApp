@@ -1,7 +1,5 @@
 package RoomieRoster.UI.Fragments;
 
-import static com.google.android.gms.maps.CameraUpdateFactory.newLatLng;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,7 +24,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -35,14 +32,9 @@ import java.util.List;
 import java.util.Map;
 
 import RoomieRoster.UI.Activities.HomeActivity;
-import RoomieRoster.UI.Activities.NewChoreActivity;
-import RoomieRoster.UI.RecyclerViews.ChoreAdapter;
-import RoomieRoster.UI.RecyclerViews.ChoresViewInterface;
 import RoomieRoster.UI.RecyclerViews.MapPointAdapter;
 import RoomieRoster.UI.RecyclerViews.MapPointsViewInterface;
-import RoomieRoster.model.Chore;
 import RoomieRoster.model.MapPoint;
-import RoomieRoster.model.viewmodel.ChoreViewModel;
 import RoomieRoster.model.viewmodel.HouseViewModel;
 import RoomieRoster.model.viewmodel.UserViewModel;
 
@@ -102,29 +94,32 @@ public class MapFragment extends Fragment implements MapPointsViewInterface {
                             roommateLocations.put(m, new LatLng(latitude, longitude));
                             Log.i("MapFragment", ": MapPoint Made");
                         }
-                        mMapPointAdapter = new MapPointAdapter(getActivity().getApplicationContext(), recyclerViewRoommates, MapFragment.this);
-                        recyclerView.setAdapter(mMapPointAdapter);
+                        if(getActivity() != null) {
+                            mMapPointAdapter = new MapPointAdapter(getActivity().getApplicationContext(), recyclerViewRoommates, MapFragment.this);
+                            recyclerView.setAdapter(mMapPointAdapter);
+                        }
                     }
                 });
             }
         });
-
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-
+        if(getActivity() != null) {
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+        }
 
         // Initialize map fragment
         SupportMapFragment supportMapFragment=(SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.map);
-
+    if(supportMapFragment != null){
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(@NonNull GoogleMap googleMap) {
-                mMap = googleMap;
+        @Override
+        public void onMapReady(@NonNull GoogleMap googleMap) {
+         mMap = googleMap;
 
-            }
-        });
+        }
+    });}
+
 
         // home button controller
         if (mHomeButton != null) {
@@ -134,7 +129,7 @@ public class MapFragment extends Fragment implements MapPointsViewInterface {
                     Log.d(TAG, TAG + ": Home Button Clicked");
                     Intent intent = new Intent(getActivity(), HomeActivity.class);
                     startActivity(intent);
-                    getActivity().finish();
+                    if(getActivity() != null)getActivity().finish();
                 }
             });
         }
@@ -178,7 +173,9 @@ public class MapFragment extends Fragment implements MapPointsViewInterface {
         MapPoint currentPoint = recyclerViewRoommates.get(position);
         LatLng pos = roommateLocations.get(currentPoint);
         //mMap.moveCamera(CameraUpdateFactory.zoomIn(roommateLocations.get(m).getPosition()));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 7), 1000, null);
+        if(pos != null){
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 7), 1000, null);
+        }
         Log.i(TAG, TAG + " clicked");
 
     }

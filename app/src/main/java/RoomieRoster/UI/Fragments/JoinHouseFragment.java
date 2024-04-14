@@ -68,7 +68,7 @@ public class JoinHouseFragment extends Fragment {
                     mUserViewModel.updateHouse(mUserViewModel.getCurrentUser().getValue(), houseCode);
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
                     startActivity(intent);
-                    getActivity().finish();
+                    if(getActivity() != null) getActivity().finish();
                 }
             });
         }

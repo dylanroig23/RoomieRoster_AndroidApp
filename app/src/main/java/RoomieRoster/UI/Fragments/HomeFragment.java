@@ -4,36 +4,26 @@ import static androidx.core.content.ContextCompat.startForegroundService;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.RoomieRoster.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import RoomieRoster.UI.Activities.ChoresActivity;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import RoomieRoster.UI.Activities.CreateHouseActivity;
-import RoomieRoster.UI.Activities.JoinHouseActivity;
-import RoomieRoster.UI.Activities.LoginActivity;
 import RoomieRoster.UI.Activities.MapsActivity;
 import RoomieRoster.model.LocationService;
 import RoomieRoster.model.viewmodel.HouseViewModel;
@@ -146,7 +136,7 @@ public class HomeFragment extends Fragment {
 
                     Intent intent = new Intent(getActivity(), ChoresActivity.class);
                     startActivity(intent);
-                    getActivity().finish();
+                    if(getActivity() != null) getActivity().finish();
                 }
             });
         }
@@ -159,7 +149,7 @@ public class HomeFragment extends Fragment {
 
                     Intent intent = new Intent(getActivity(), MapsActivity.class);
                     startActivity(intent);
-                    getActivity().finish();
+                    if(getActivity() != null) getActivity().finish();
                 }
             });
         }

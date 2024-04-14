@@ -3,7 +3,6 @@ package RoomieRoster.model;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -94,7 +93,7 @@ public class FirebaseRepository {
 
     public void getUserHouse(String userId, OnUserHouseCallback callback) {
         DatabaseReference userRef = database.child("users").child(userId);
-        Log.i("FirebaseRepository", "FirebaseRespository: " + userRef.toString());
+        Log.i("FirebaseRepository", "FirebaseRepository: " + userRef);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -127,11 +126,13 @@ public class FirebaseRepository {
                         String name = houseSnap.child("name").getValue(String.class);
                         String latitudeS = houseSnap.child("latitude").getValue(String.class);
                         String longitudeS = houseSnap.child("longitude").getValue(String.class);
-                        float latitudeF = Float.parseFloat(latitudeS);
-                        float longitudeF = Float.parseFloat(longitudeS);
-                        MapPoint point = new MapPoint(name, latitudeF, longitudeF);
-                        userLocations.add(point);
-                        Log.e("FirebaseRepository", ": MapPoint for " + name + "made");
+                        if(latitudeS != null && longitudeS != null){
+                            float latitudeF = Float.parseFloat(latitudeS);
+                            float longitudeF = Float.parseFloat(longitudeS);
+                            MapPoint point = new MapPoint(name, latitudeF, longitudeF);
+                            userLocations.add(point);
+                            Log.e("FirebaseRepository", ": MapPoint for " + name + "made");
+                        }
                     }
                     callback.OnRoommatesHouseRetrieved(userLocations);
                 }
@@ -208,8 +209,10 @@ public class FirebaseRepository {
                 List<Chore> chores = new ArrayList<>();
                 for (DataSnapshot snap : snapshot.getChildren()) {
                     Chore addChore = snap.getValue(Chore.class);
-                    addChore.choreID = snap.getKey();
-                    chores.add(addChore);
+                    if(addChore != null){
+                        addChore.choreID = snap.getKey();
+                        chores.add(addChore);
+                    }
                 }
                 callback.onDataLoaded(chores);
             }
@@ -231,21 +234,25 @@ public class FirebaseRepository {
 
     public void insertLocation(String houseID, Double latitude, Double longitude){
         FirebaseUser user = auth_FB.getCurrentUser();
-        String userID = user.getUid();
-        String name = user.getDisplayName();
-        Map<String, String> locationValues = new HashMap<>();
-        locationValues.put("name", name);
-        locationValues.put("latitude", latitude.toString() );
-        locationValues.put("longitude", longitude.toString());
-
-        if(houseID != null){
-            database.child("houses").child(houseID).child("users").child(userID).setValue(locationValues);
+        if(user != null){
+            String userID = user.getUid();
+            String name = user.getDisplayName();
+            Map<String, String> locationValues = new HashMap<>();
+            locationValues.put("name", name);
+            locationValues.put("latitude", latitude.toString() );
+            locationValues.put("longitude", longitude.toString());
+            if(houseID != null){
+                database.child("houses").child(houseID).child("users").child(userID).setValue(locationValues);
+            }
         }
     }
 
     public String getFB_Auth_ID(){
         FirebaseUser user = auth_FB.getCurrentUser();
-        return user.getUid();
+        if(user != null){
+            return user.getUid();
+        }
+       return "null pointer error";
     }
 
 
