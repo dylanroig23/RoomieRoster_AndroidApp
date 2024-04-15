@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_background"
+    tools:context="RoomieRoster.UI.Activities.HomeActivity"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/chore_container"
+        android:id="@+id/welcomeHeader">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Home_WelcomeTo"
+            android:textSize="25dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:textStyle="bold|italic"
+            android:text="Welcome to" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/title"
+            android:textSize="35dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_below="@id/Home_WelcomeTo"
+            android:text="RoomieRoster!" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/welcomeHeader"
+        android:id="@+id/houseHeader">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Home_Address"
+            android:textSize="30dp"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/white"
+            android:textStyle="bold|italic"
+            android:layout_centerHorizontal="true"
+            android:text="House: " />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Home_houseCode"
+            android:textSize="55dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/Home_Address"
+            tools:text="house code" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/rr_icon"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/RR_icon_description"
+        android:id="@+id/logo"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="italic"
+        android:text="Press one of the buttons\nbelow to get started!"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:layout_below="@id/logo"
+        android:gravity="center_horizontal"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cardview_dark_background"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/navBarBottom">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Home_Chores"
+            android:id="@+id/btn_chores"
+            android:textColor="#36454F"
+            android:textSize="30sp"
+            android:background="@drawable/rounded_edittext_bg"
+            android:textAllCaps="false"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Home_FindRoommates"
+            android:id="@+id/btn_map"
+            android:textColor="#36454F"
+            android:textSize="30sp"
+            android:background="@drawable/rounded_edittext_bg"
+            android:textAllCaps="false"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
