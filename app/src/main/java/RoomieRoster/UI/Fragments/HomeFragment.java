@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -47,6 +49,8 @@ public class HomeFragment extends Fragment {
 
     Button mChoresButton;
     Button mMapButton;
+
+    TextView mTextViewHouseCode;
 
 
     @Override
@@ -99,11 +103,20 @@ public class HomeFragment extends Fragment {
         View v;
         Log.d(TAG, "HomeFragment: onCreateView()");
 
-        v = inflater.inflate(R.layout.fragment_home, container, false);
+        v = inflater.inflate(R.layout.fragmentnew_home, container, false);
 
 //        mDeleteButton = v.findViewById(R.id.btn_delete);
         mChoresButton = v.findViewById(R.id.btn_chores);
         mMapButton = v.findViewById(R.id.btn_map);
+        mTextViewHouseCode = v.findViewById(R.id.Home_houseCode);
+
+        String uid = mUserViewModel.getCurrentUser().getValue();
+        mUserViewModel.getUserHouse(uid).observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String house) {
+                mTextViewHouseCode.setText(house);
+            }
+        });
 
 //        if (mDeleteButton != null) {
 //            mDeleteButton.setOnClickListener(new View.OnClickListener() {
