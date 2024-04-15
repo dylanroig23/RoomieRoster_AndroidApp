@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -26,7 +27,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+import RoomieRoster.UI.Activities.ConnectionLostActivity;
 import RoomieRoster.UI.Activities.HouseOptionActivity;
+import RoomieRoster.model.NetworkManager;
 import RoomieRoster.model.User;
 import RoomieRoster.model.viewmodel.UserViewModel;
 
@@ -52,6 +55,7 @@ public class RegisterFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         Activity activity = requireActivity();
         mUserViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(UserViewModel.class);
+//        NetworkManager.getInstance().getNetworkStatus().observe(this, activeNetworkObserver);
         Log.d(TAG, "RegisterFragment: onCreate()");
     }
 
@@ -168,4 +172,14 @@ public class RegisterFragment extends Fragment {
 
         return v;
     }
+//    private final Observer<Boolean> activeNetworkObserver = new Observer<Boolean>() {
+//        @Override
+//        public void onChanged(Boolean hasInternet) {
+//            if(!hasInternet){
+//                Intent intent = new Intent(getActivity(), ConnectionLostActivity.class);
+//                startActivity(intent);
+//                if(getActivity() != null) getActivity().finish();
+//            }
+//        }
+//    };
 }

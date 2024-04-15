@@ -13,13 +13,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.RoomieRoster.R;
 import com.google.android.material.textfield.TextInputEditText;
 
+import RoomieRoster.UI.Activities.ConnectionLostActivity;
 import RoomieRoster.UI.Activities.LoginActivity;
+import RoomieRoster.model.NetworkManager;
 import RoomieRoster.model.viewmodel.HouseViewModel;
 import RoomieRoster.model.viewmodel.UserViewModel;
 
@@ -38,6 +41,7 @@ public class JoinHouseFragment extends Fragment {
         mHouseViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(HouseViewModel.class);
         mUserViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(UserViewModel.class);
         mUserViewModel.setCurrentUser();
+//        NetworkManager.getInstance().getNetworkStatus().observe(this, activeNetworkObserver);
     }
 
     @Override
@@ -106,4 +110,15 @@ public class JoinHouseFragment extends Fragment {
         super.onDestroy();
         Log.d(TAG, TAG + ": onDestroy() called");
     }
+
+//    private final Observer<Boolean> activeNetworkObserver = new Observer<Boolean>() {
+//        @Override
+//        public void onChanged(Boolean hasInternet) {
+//            if(!hasInternet){
+//                Intent intent = new Intent(getActivity(), ConnectionLostActivity.class);
+//                startActivity(intent);
+//                if(getActivity() != null) getActivity().finish();
+//            }
+//        }
+//    };
 }

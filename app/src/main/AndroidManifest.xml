@@ -8,8 +8,10 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name = "RoomieRoster.ConnectionApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -70,6 +72,10 @@
         </activity>
         <activity
             android:name="RoomieRoster.UI.Activities.NewChoreActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name="RoomieRoster.UI.Activities.ConnectionLostActivity"
             android:exported="true">
         </activity>
     </application>

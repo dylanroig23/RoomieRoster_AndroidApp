@@ -22,11 +22,13 @@ import com.RoomieRoster.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import RoomieRoster.UI.Activities.ConnectionLostActivity;
 import RoomieRoster.UI.Activities.HomeActivity;
 import RoomieRoster.UI.Activities.NewChoreActivity;
 import RoomieRoster.UI.RecyclerViews.ChoreAdapter;
 import RoomieRoster.UI.RecyclerViews.ChoresViewInterface;
 import RoomieRoster.model.Chore;
+import RoomieRoster.model.NetworkManager;
 import RoomieRoster.model.viewmodel.ChoreViewModel;
 import RoomieRoster.model.viewmodel.UserViewModel;
 
@@ -47,6 +49,8 @@ public class ChoresFragment extends Fragment implements ChoresViewInterface {
         Activity activity = requireActivity();
         mUserViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(UserViewModel.class);
         mChoreViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(ChoreViewModel.class);
+
+        NetworkManager.getInstance().getNetworkStatus().observe(this, activeNetworkObserver);
     }
 
     @Override
@@ -153,4 +157,15 @@ public class ChoresFragment extends Fragment implements ChoresViewInterface {
         mChoreAdapter.notifyItemRemoved(position);
         mChoreViewModel.deleteChore(choreToRemove.getChoreHouse(), choreToRemove.getChoreID());
     }
+
+    private final Observer<Boolean> activeNetworkObserver = new Observer<Boolean>() {
+        @Override
+        public void onChanged(Boolean hasInternet) {
+            if(!hasInternet){
+                Intent intent = new Intent(getActivity(), ConnectionLostActivity.class);
+                startActivity(intent);
+                if(getActivity() != null) getActivity().finish();
+            }
+        }
+    };
 }

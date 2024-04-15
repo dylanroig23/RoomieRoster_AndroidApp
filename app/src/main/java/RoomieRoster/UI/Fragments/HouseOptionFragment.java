@@ -10,11 +10,14 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 import com.RoomieRoster.R;
 
+import RoomieRoster.UI.Activities.ConnectionLostActivity;
 import RoomieRoster.UI.Activities.CreateHouseActivity;
 import RoomieRoster.UI.Activities.JoinHouseActivity;
+import RoomieRoster.model.NetworkManager;
 
 public class HouseOptionFragment extends Fragment {
 
@@ -25,6 +28,7 @@ public class HouseOptionFragment extends Fragment {
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+//        NetworkManager.getInstance().getNetworkStatus().observe(this, activeNetworkObserver);
         Log.d(TAG, "HouseOptionFragment: onCreate()");
     }
 
@@ -94,7 +98,16 @@ public class HouseOptionFragment extends Fragment {
         super.onDestroy();
         Log.d(TAG, "HouseOptionFragment: onDestroy() called");
     }
-
+ //   private final Observer<Boolean> activeNetworkObserver = new Observer<Boolean>() {
+//        @Override
+//        public void onChanged(Boolean hasInternet) {
+//            if(!hasInternet){
+//                Intent intent = new Intent(getActivity(), ConnectionLostActivity.class);
+//                startActivity(intent);
+//                if(getActivity() != null) getActivity().finish();
+//            }
+//        }
+//    };
 }
 
 

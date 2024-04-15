@@ -31,10 +31,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import RoomieRoster.UI.Activities.ConnectionLostActivity;
 import RoomieRoster.UI.Activities.HomeActivity;
 import RoomieRoster.UI.RecyclerViews.MapPointAdapter;
 import RoomieRoster.UI.RecyclerViews.MapPointsViewInterface;
 import RoomieRoster.model.MapPoint;
+import RoomieRoster.model.NetworkManager;
 import RoomieRoster.model.viewmodel.HouseViewModel;
 import RoomieRoster.model.viewmodel.UserViewModel;
 
@@ -57,6 +59,7 @@ public class MapFragment extends Fragment implements MapPointsViewInterface {
         Activity activity = requireActivity();
         mHouseViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(HouseViewModel.class);
         mUserViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(UserViewModel.class);
+        NetworkManager.getInstance().getNetworkStatus().observe(this, activeNetworkObserver);
     }
 
     @Override
@@ -179,4 +182,15 @@ public class MapFragment extends Fragment implements MapPointsViewInterface {
         Log.i(TAG, TAG + " clicked");
 
     }
+
+    private final Observer<Boolean> activeNetworkObserver = new Observer<Boolean>() {
+        @Override
+        public void onChanged(Boolean hasInternet) {
+            if(!hasInternet){
+                Intent intent = new Intent(getActivity(), ConnectionLostActivity.class);
+                startActivity(intent);
+                if(getActivity() != null) getActivity().finish();
+            }
+        }
+    };
 }
