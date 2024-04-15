@@ -4,10 +4,8 @@ import static androidx.core.content.ContextCompat.startForegroundService;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,8 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -27,17 +23,15 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.RoomieRoster.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import RoomieRoster.UI.Activities.ChoresActivity;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import RoomieRoster.UI.Activities.CreateHouseActivity;
-import RoomieRoster.UI.Activities.JoinHouseActivity;
-import RoomieRoster.UI.Activities.LoginActivity;
+
+import RoomieRoster.UI.Activities.ConnectionLostActivity;
 import RoomieRoster.UI.Activities.MapsActivity;
 import RoomieRoster.model.LocationService;
+import RoomieRoster.model.NetworkManager;
 import RoomieRoster.model.viewmodel.HouseViewModel;
 import RoomieRoster.model.viewmodel.UserViewModel;
 
@@ -66,6 +60,7 @@ public class HomeFragment extends Fragment {
         mHouseViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(HouseViewModel.class);
         mUserViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(UserViewModel.class);
         mUserViewModel.setCurrentUser();
+        NetworkManager.getInstance().getNetworkStatus().observe(this, activeNetworkObserver);
         Log.d(TAG, "HomeFragment: onCreate()");
         int currentApiVersion = android.os.Build.VERSION.SDK_INT;
         // Initialize ActivityResultLauncher for foreground location permission
@@ -159,7 +154,7 @@ public class HomeFragment extends Fragment {
 
                     Intent intent = new Intent(getActivity(), ChoresActivity.class);
                     startActivity(intent);
-                    getActivity().finish();
+                    if(getActivity() != null) getActivity().finish();
                 }
             });
         }
@@ -172,7 +167,7 @@ public class HomeFragment extends Fragment {
 
                     Intent intent = new Intent(getActivity(), MapsActivity.class);
                     startActivity(intent);
-                    getActivity().finish();
+                    if(getActivity() != null) getActivity().finish();
                 }
             });
         }
@@ -239,6 +234,17 @@ public class HomeFragment extends Fragment {
         super.onDestroy();
         Log.d(TAG, "HomeFragment: onDestroy() called");
     }
+
+    private final Observer<Boolean> activeNetworkObserver = new Observer<Boolean>() {
+        @Override
+        public void onChanged(Boolean hasInternet) {
+            if(!hasInternet){
+                Intent intent = new Intent(getActivity(), ConnectionLostActivity.class);
+                startActivity(intent);
+                if(getActivity() != null) getActivity().finish();
+            }
+        }
+    };
 
 }
 

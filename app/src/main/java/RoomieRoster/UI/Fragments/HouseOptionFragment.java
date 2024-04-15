@@ -2,26 +2,22 @@ package RoomieRoster.UI.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 import com.RoomieRoster.R;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
+import RoomieRoster.UI.Activities.ConnectionLostActivity;
 import RoomieRoster.UI.Activities.CreateHouseActivity;
-import RoomieRoster.UI.Activities.HomeActivity;
 import RoomieRoster.UI.Activities.JoinHouseActivity;
-import RoomieRoster.UI.Activities.RegisterActivity;
+import RoomieRoster.model.NetworkManager;
 
 public class HouseOptionFragment extends Fragment {
 
@@ -32,6 +28,7 @@ public class HouseOptionFragment extends Fragment {
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+//        NetworkManager.getInstance().getNetworkStatus().observe(this, activeNetworkObserver);
         Log.d(TAG, "HouseOptionFragment: onCreate()");
     }
 
@@ -53,7 +50,7 @@ public class HouseOptionFragment extends Fragment {
 
                     Intent intent = new Intent(getActivity(), JoinHouseActivity.class);
                     startActivity(intent);
-                    getActivity().finish();
+                    if(getActivity() != null) getActivity().finish();
                 }
             });
         }
@@ -66,7 +63,7 @@ public class HouseOptionFragment extends Fragment {
 
                     Intent intent = new Intent(getActivity(), CreateHouseActivity.class);
                     startActivity(intent);
-                    getActivity().finish();
+                    if(getActivity() != null) getActivity().finish();
                 }
             });
         }
@@ -101,7 +98,16 @@ public class HouseOptionFragment extends Fragment {
         super.onDestroy();
         Log.d(TAG, "HouseOptionFragment: onDestroy() called");
     }
-
+ //   private final Observer<Boolean> activeNetworkObserver = new Observer<Boolean>() {
+//        @Override
+//        public void onChanged(Boolean hasInternet) {
+//            if(!hasInternet){
+//                Intent intent = new Intent(getActivity(), ConnectionLostActivity.class);
+//                startActivity(intent);
+//                if(getActivity() != null) getActivity().finish();
+//            }
+//        }
+//    };
 }
 
 

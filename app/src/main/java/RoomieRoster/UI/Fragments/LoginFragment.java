@@ -108,11 +108,13 @@ public class LoginFragment extends Fragment {
                                         startActivity(intent);
 
                                         // finish the login activity
-                                        getActivity().finish();
+                                        if(getActivity() != null) getActivity().finish();
                                     } else {
-                                        Log.d(TAG, "LoginFragment: User Login Fail: " + task.getException().getMessage());
-                                        Toast.makeText(view.getContext(), "Login Failed: " + task.getException().getMessage(),
-                                                Toast.LENGTH_SHORT).show();
+                                        if(task.getException() != null) {
+                                            Log.d(TAG, "LoginFragment: User Login Fail: " + task.getException().getMessage());
+                                            Toast.makeText(view.getContext(), "Login Failed: " + task.getException().getMessage(),
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
                                     }
                                 }
                             });
@@ -133,7 +135,7 @@ public class LoginFragment extends Fragment {
                     startActivity(intent);
 
                     //finish the login activity
-                    getActivity().finish();
+                    if(getActivity() != null) getActivity().finish();
                 }
             });
         }

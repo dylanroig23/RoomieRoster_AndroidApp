@@ -5,9 +5,9 @@ import java.util.Map;
 
 public class MapPoint {
 
-    private String name;
-    private float latitude;
-    private float longitude;
+    private final String name;
+    private final float latitude;
+    private final float longitude;
 
 
     public MapPoint(String name, float latitude, float longitude) {

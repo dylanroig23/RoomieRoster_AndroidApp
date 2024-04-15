@@ -9,11 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -27,9 +27,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+import RoomieRoster.UI.Activities.ConnectionLostActivity;
 import RoomieRoster.UI.Activities.HouseOptionActivity;
-import RoomieRoster.UI.Activities.LoginActivity;
-import RoomieRoster.UI.Activities.RegisterActivity;
+import RoomieRoster.model.NetworkManager;
 import RoomieRoster.model.User;
 import RoomieRoster.model.viewmodel.UserViewModel;
 
@@ -55,6 +55,7 @@ public class RegisterFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         Activity activity = requireActivity();
         mUserViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(UserViewModel.class);
+//        NetworkManager.getInstance().getNetworkStatus().observe(this, activeNetworkObserver);
         Log.d(TAG, "RegisterFragment: onCreate()");
     }
 
@@ -130,22 +131,25 @@ public class RegisterFragment extends Fragment {
                                         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                                 .setDisplayName(name)
                                                 .build();
-
-                                        user_FB.updateProfile(profileUpdates)
-                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        if (task.isSuccessful()) {
-                                                            Log.d(TAG, "User profile updated.");
+                                        if(user_FB != null) {
+                                            user_FB.updateProfile(profileUpdates)
+                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            if (task.isSuccessful()) {
+                                                                Log.d(TAG, "User profile updated.");
+                                                            }
                                                         }
-                                                    }
-                                                });
-
+                                                    });
+                                        }
                                         Log.i(TAG, "RegisterFragment: Create User Account Success");
                                         Toast.makeText(view.getContext(), "Create User Account Success.",
                                                 Toast.LENGTH_SHORT).show();
                                         FirebaseUser curr = mAuth.getCurrentUser();
-                                        String uid = curr.getUid();
+                                        String uid = "";
+                                        if(curr != null) {
+                                            uid = curr.getUid();
+                                        }
                                         User user = new User(name, email, phone, uid, "1234");
                                         mUserViewModel.insert(user);
                                         Intent intent = new Intent(getActivity(), HouseOptionActivity.class);
@@ -154,8 +158,8 @@ public class RegisterFragment extends Fragment {
                                         startActivity(intent);
 
                                         // Finish the RegisterActivity
-                                        getActivity().finish();
-                                    } else {
+                                        if(getActivity() != null) getActivity().finish();
+                                    } else if(task.getException() != null){
                                         Log.e(TAG, "RegisterFragment: Create User Account Failed: " + task.getException().getMessage());
                                         Toast.makeText(view.getContext(), "Create User Account Failed: " + task.getException().getMessage() + ". Please Try Again.",
                                                 Toast.LENGTH_SHORT).show();
@@ -168,4 +172,14 @@ public class RegisterFragment extends Fragment {
 
         return v;
     }
+//    private final Observer<Boolean> activeNetworkObserver = new Observer<Boolean>() {
+//        @Override
+//        public void onChanged(Boolean hasInternet) {
+//            if(!hasInternet){
+//                Intent intent = new Intent(getActivity(), ConnectionLostActivity.class);
+//                startActivity(intent);
+//                if(getActivity() != null) getActivity().finish();
+//            }
+//        }
+//    };
 }
